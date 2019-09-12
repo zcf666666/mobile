@@ -1,0 +1,84 @@
+package com.lb.mobile.comm.base.constant;
+
+public interface Constant {
+
+    public static  final  String lottery_data_spilt = "-";
+    public static  final  String lottery_data_group_spilt = "&";
+
+    public interface LotteryType{
+        /**七乐彩**/
+        public static  final  int lottery_type_lecagreati = 0;
+        /**大乐透*/
+        public static  final  int lottery_type_superlotto = 1;
+        /**排列三*/
+        public static  final  int lottery_type_arrange_3 = 2;
+        /**双色球*/
+        public static  final  int lottery_type_dualcoloredball = 3;
+        /**福彩3D*/
+        public static  final  int lottery_type_lottery_3_d = 4;
+    }
+    public interface  LotteryStatus{
+        /**待跑**/
+        public static  final  int lottery_status_wait = 0;
+        /**已跑**/
+        public static  final  int lottery_status_succ = 1;
+        /**失败**/
+        public static  final  int lottery_status_fail = 2;
+    }
+    public interface  SchemeStatus{
+        /**成功**/
+        public static  final  int scheme_status_wait = 0;
+        /**成功**/
+        public static  final  int scheme_status_succ = 1;
+        /**失败**/
+        public static  final  int scheme_status_fail = 2;
+    }
+    public interface  IsEnable{
+        /**是**/
+        public static  final  int source_isenable_yes = 0;
+        /**否**/
+        public static  final  int source_isenable_no = 1;
+        /**删**/
+        public static  final  int source_isenable_del = 2;
+    }
+    public interface  IsConcern{
+        /**否**/
+        public static  final  int source_isconcern_no = 1;
+        /**是**/
+        public static  final  int source_isconcern_yes = 0;
+    }
+    public interface  FileType{
+        /**资讯**/
+        public static  final  int file_type_information = 0;
+        /**帖子**/
+        public static  final  int file_type_post = 1;
+        /**方案**/
+        public static  final  int file_type_scheme = 2;
+        /**彩种**/
+        public static  final  int file_type_lottery = 3;
+        /**头像**/
+        public static  final  int file_type_head =4;
+        /**banner**/
+        public static  final  int file_type_bannner =5;
+        /**专题封面**/
+        public static  final  int file_type_topics_cover =6;
+    }
+    public interface  NoticeType{
+        /**通知**/
+        public static  final  int notice_type_notice =0;
+        /**公告**/
+        public static  final  int notice_type_announcement =1;
+    }
+    public interface  PostInfoType{
+        /**帖子**/
+        public static  final  int postinfo_type_posts =0;
+        /**置顶资讯**/
+        public static  final  int postinfo_type_sticky_information =1;
+        /**最新资讯**/
+        public static  final  int postinfo_type_laster_information =2;
+        /**热门资讯**/
+        public static  final  int postinfo_type_hot_information =3;
+        /**专题**/
+        public static  final  int postinfo_type_special_information=4;
+    }
+}

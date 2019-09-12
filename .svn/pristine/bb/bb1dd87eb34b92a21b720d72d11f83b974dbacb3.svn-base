@@ -1,0 +1,36 @@
+package com.lb.mobile.service.impl;
+
+import com.lb.mobile.comm.base.ResponseResult;
+import com.lb.mobile.comm.base.constant.Constant;
+import com.lb.mobile.dao.filePoMapper;
+import com.lb.mobile.entity.filePo;
+import com.lb.mobile.service.HeadLineService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Map;
+
+@Service
+public class HeadLineServiceIpml implements HeadLineService {
+
+    private static final Logger log = LoggerFactory.getLogger(HeadLineServiceIpml.class);
+
+    @Value("${server.url}")
+    String  address;
+    @Autowired
+    filePoMapper filePoMapper;
+    @Override
+    public ResponseResult txBanners(Map dto) {
+        if (! dto.containsKey("limit")){
+            dto.put( "limit",5);
+        }
+        dto.put("fileType", Constant.FileType.file_type_bannner);
+        dto.put("isEnable",Constant.IsEnable.source_isenable_yes);
+        List<filePo> filePos = filePoMapper.selectFileListByMap(dto);
+        return ResponseResult.success(filePos,address);
+    }
+}

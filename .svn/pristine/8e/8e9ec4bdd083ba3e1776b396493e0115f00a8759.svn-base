@@ -1,0 +1,14 @@
+package com.lb.mobile.service;
+
+import com.lb.mobile.comm.base.ResponseResult;
+import com.lb.mobile.entity.concernPo;
+
+import java.util.Map;
+
+public interface LotteryService {
+    ResponseResult latestLottery(Map dto);
+    ResponseResult lotteryChart(Map dto);
+    ResponseResult attentionLottery(concernPo concernPo);
+    ResponseResult attentionLotteryList(Map dto);
+    ResponseResult unsubscribeLottery(String id);
+}

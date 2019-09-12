@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lb.mobile.dao.UserPoMapper">
+  <resultMap id="BaseResultMap" type="com.lb.mobile.entity.UserPo">
+    <id column="uid" jdbcType="VARCHAR" property="uid" />
+    <result column="open_id" jdbcType="VARCHAR" property="openId" />
+    <result column="ctm_phone" jdbcType="VARCHAR" property="ctmPhone" />
+    <result column="ctm_name" jdbcType="VARCHAR" property="ctmName" />
+    <result column="nick_name" jdbcType="VARCHAR" property="nickName" />
+    <result column="ctm_pwd" jdbcType="VARCHAR" property="ctmPwd" />
+    <result column="ctm_sex" jdbcType="INTEGER" property="ctmSex" />
+    <result column="head_url" jdbcType="VARCHAR" property="headUrl" />
+    <result column="ctm_source" jdbcType="INTEGER" property="ctmSource" />
+    <result column="province_code" jdbcType="INTEGER" property="provinceCode" />
+    <result column="city_code" jdbcType="INTEGER" property="cityCode" />
+    <result column="ctm_genre" jdbcType="INTEGER" property="ctmGenre" />
+    <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
+    <result column="update_date" jdbcType="TIMESTAMP" property="updateDate" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    uid, open_id, ctm_phone, ctm_name, nick_name, ctm_pwd, ctm_sex, head_url, ctm_source,
+    province_code, city_code, ctm_genre, create_date, update_date, remark
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_user
+    where uid = #{uid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from t_user
+    where uid = #{uid,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" keyColumn="uid" keyProperty="uid" parameterType="com.lb.mobile.entity.UserPo" useGeneratedKeys="true">
+    insert into t_user (uid,open_id, ctm_phone, ctm_name,
+      nick_name, ctm_pwd, ctm_sex, 
+      head_url, ctm_source, province_code, 
+      city_code, ctm_genre, create_date, 
+      update_date, remark)
+    values (#{uid,jdbcType=VARCHAR}#{openId,jdbcType=VARCHAR}, #{ctmPhone,jdbcType=VARCHAR}, #{ctmName,jdbcType=VARCHAR},
+      #{nickName,jdbcType=VARCHAR}, #{ctmPwd,jdbcType=VARCHAR}, #{ctmSex,jdbcType=INTEGER}, 
+      #{headUrl,jdbcType=VARCHAR}, #{ctmSource,jdbcType=INTEGER}, #{provinceCode,jdbcType=INTEGER}, 
+      #{cityCode,jdbcType=INTEGER}, #{ctmGenre,jdbcType=INTEGER}, #{createDate,jdbcType=TIMESTAMP}, 
+      #{updateDate,jdbcType=TIMESTAMP}, #{remark,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" keyColumn="uid" keyProperty="uid" parameterType="com.lb.mobile.entity.UserPo" useGeneratedKeys="true">
+    insert into t_user
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="uid != null">
+        uid,
+      </if>
+        <if test="openId != null">
+            open_id,
+        </if>
+      <if test="ctmPhone != null">
+        ctm_phone,
+      </if>
+      <if test="ctmName != null">
+        ctm_name,
+      </if>
+      <if test="nickName != null">
+        nick_name,
+      </if>
+      <if test="ctmPwd != null">
+        ctm_pwd,
+      </if>
+      <if test="ctmSex != null">
+        ctm_sex,
+      </if>
+      <if test="headUrl != null">
+        head_url,
+      </if>
+      <if test="ctmSource != null">
+        ctm_source,
+      </if>
+      <if test="provinceCode != null">
+        province_code,
+      </if>
+      <if test="cityCode != null">
+        city_code,
+      </if>
+      <if test="ctmGenre != null">
+        ctm_genre,
+      </if>
+      <if test="createDate != null">
+        create_date,
+      </if>
+      <if test="updateDate != null">
+        update_date,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="uid != null">
+        #{uid,jdbcType=VARCHAR},
+      </if>
+        <if test="openId != null">
+            #{openId,jdbcType=VARCHAR},
+        </if>
+      <if test="ctmPhone != null">
+        #{ctmPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="ctmName != null">
+        #{ctmName,jdbcType=VARCHAR},
+      </if>
+      <if test="nickName != null">
+        #{nickName,jdbcType=VARCHAR},
+      </if>
+      <if test="ctmPwd != null">
+        #{ctmPwd,jdbcType=VARCHAR},
+      </if>
+      <if test="ctmSex != null">
+        #{ctmSex,jdbcType=INTEGER},
+      </if>
+      <if test="headUrl != null">
+        #{headUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="ctmSource != null">
+        #{ctmSource,jdbcType=INTEGER},
+      </if>
+      <if test="provinceCode != null">
+        #{provinceCode,jdbcType=INTEGER},
+      </if>
+      <if test="cityCode != null">
+        #{cityCode,jdbcType=INTEGER},
+      </if>
+      <if test="ctmGenre != null">
+        #{ctmGenre,jdbcType=INTEGER},
+      </if>
+      <if test="createDate != null">
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateDate != null">
+        #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lb.mobile.entity.UserPo">
+    update t_user
+    <set>
+      <if test="openId != null">
+        open_id = #{openId,jdbcType=VARCHAR},
+      </if>
+      <if test="ctmPhone != null">
+        ctm_phone = #{ctmPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="ctmName != null">
+        ctm_name = #{ctmName,jdbcType=VARCHAR},
+      </if>
+      <if test="nickName != null">
+        nick_name = #{nickName,jdbcType=VARCHAR},
+      </if>
+      <if test="ctmPwd != null">
+        ctm_pwd = #{ctmPwd,jdbcType=VARCHAR},
+      </if>
+      <if test="ctmSex != null">
+        ctm_sex = #{ctmSex,jdbcType=INTEGER},
+      </if>
+      <if test="headUrl != null">
+        head_url = #{headUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="ctmSource != null">
+        ctm_source = #{ctmSource,jdbcType=INTEGER},
+      </if>
+      <if test="provinceCode != null">
+        province_code = #{provinceCode,jdbcType=INTEGER},
+      </if>
+      <if test="cityCode != null">
+        city_code = #{cityCode,jdbcType=INTEGER},
+      </if>
+      <if test="ctmGenre != null">
+        ctm_genre = #{ctmGenre,jdbcType=INTEGER},
+      </if>
+      <if test="createDate != null">
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateDate != null">
+        update_date = #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where uid = #{uid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lb.mobile.entity.UserPo">
+    update t_user
+    set open_id = #{openId,jdbcType=VARCHAR},
+      ctm_phone = #{ctmPhone,jdbcType=VARCHAR},
+      ctm_name = #{ctmName,jdbcType=VARCHAR},
+      nick_name = #{nickName,jdbcType=VARCHAR},
+      ctm_pwd = #{ctmPwd,jdbcType=VARCHAR},
+      ctm_sex = #{ctmSex,jdbcType=INTEGER},
+      head_url = #{headUrl,jdbcType=VARCHAR},
+      ctm_source = #{ctmSource,jdbcType=INTEGER},
+      province_code = #{provinceCode,jdbcType=INTEGER},
+      city_code = #{cityCode,jdbcType=INTEGER},
+      ctm_genre = #{ctmGenre,jdbcType=INTEGER},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      update_date = #{updateDate,jdbcType=TIMESTAMP},
+      remark = #{remark,jdbcType=VARCHAR}
+    where uid = #{uid,jdbcType=VARCHAR}
+  </update>
+</mapper>

@@ -1,0 +1,19 @@
+package com.lb.mobile.dao;
+
+import com.lb.mobile.entity.postInfoPo;
+
+public interface postInfoPoMapper {
+    int deleteByPrimaryKey(String id);
+
+    int insert(postInfoPo record);
+
+    int insertSelective(postInfoPo record);
+
+    postInfoPo selectByPrimaryKey(String id);
+
+    int updateByPrimaryKeySelective(postInfoPo record);
+
+    int updateByPrimaryKeyWithBLOBs(postInfoPo record);
+
+    int updateByPrimaryKey(postInfoPo record);
+}

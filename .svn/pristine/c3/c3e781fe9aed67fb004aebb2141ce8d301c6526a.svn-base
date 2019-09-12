@@ -1,0 +1,38 @@
+package com.lb.mobile.service.impl;
+
+import com.lb.mobile.comm.base.ResponseCode;
+import com.lb.mobile.comm.base.ResponseResult;
+import com.lb.mobile.dao.chartPoMapper;
+import com.lb.mobile.dao.lotteryInfoPoMapper;
+import com.lb.mobile.service.LotteryService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.util.ObjectUtils;
+
+import java.util.Map;
+
+@Service
+public class LotteryServiceIpml implements LotteryService {
+    @Autowired
+    lotteryInfoPoMapper lotteryInfoPoMapper;
+    @Autowired
+    chartPoMapper chartPoMapper;
+    @Override
+    public ResponseResult selectLatestLotteryInfoList(Map dto) {
+       if (! dto.containsKey("limit")){
+           dto.put( "limit",5);
+       }
+        return ResponseResult.success(lotteryInfoPoMapper.selectLatestLotteryInfoList(dto));
+    }
+
+    @Override
+    public ResponseResult selectLotteryChartList(Map dto) {
+        if(ObjectUtils.isEmpty(dto.get("lotteryType"))){
+            return ResponseResult.err(ResponseCode.FAIL.code,"missing param lotteryType");
+        }
+        if (! dto.containsKey("limit")){
+            dto.put( "limit",30);
+        }
+        return ResponseResult.success(chartPoMapper.selectLotteryChartList(dto));
+    }
+}

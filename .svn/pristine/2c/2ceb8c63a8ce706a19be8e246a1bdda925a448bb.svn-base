@@ -1,0 +1,19 @@
+package com.lb.mobile.dao;
+
+import com.lb.mobile.entity.commentPo;
+
+public interface commentPoMapper {
+    int deleteByPrimaryKey(String id);
+
+    int insert(commentPo record);
+
+    int insertSelective(commentPo record);
+
+    commentPo selectByPrimaryKey(String id);
+
+    int updateByPrimaryKeySelective(commentPo record);
+
+    int updateByPrimaryKeyWithBLOBs(commentPo record);
+
+    int updateByPrimaryKey(commentPo record);
+}

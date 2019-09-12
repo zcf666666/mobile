@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lb.mobile.dao.chartPoMapper">
+  <resultMap id="BaseResultMap" type="com.lb.mobile.entity.chartPo">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="lottery_num" jdbcType="INTEGER" property="lotteryNum" />
+    <result column="lottery_type" jdbcType="INTEGER" property="lotteryType" />
+    <result column="lottery_f_no" jdbcType="VARCHAR" property="lotteryFNo" />
+    <result column="lottery_m_no" jdbcType="VARCHAR" property="lotteryMNo" />
+    <result column="lottery_b_no" jdbcType="VARCHAR" property="lotteryBNo" />
+    <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.lb.mobile.entity.chartPo">
+    <result column="lottery_json" jdbcType="LONGVARCHAR" property="lotteryJson" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, lottery_num, lottery_type, lottery_f_no, lottery_m_no, lottery_b_no, create_date
+  </sql>
+  <sql id="Blob_Column_List">
+    lottery_json
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from t_chart
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from t_chart
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.lb.mobile.entity.chartPo" useGeneratedKeys="true">
+    insert into t_chart (lottery_num, lottery_type, lottery_f_no, 
+      lottery_m_no, lottery_b_no, create_date, 
+      lottery_json)
+    values (#{lotteryNum,jdbcType=INTEGER}, #{lotteryType,jdbcType=INTEGER}, #{lotteryFNo,jdbcType=VARCHAR}, 
+      #{lotteryMNo,jdbcType=VARCHAR}, #{lotteryBNo,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP}, 
+      #{lotteryJson,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.lb.mobile.entity.chartPo" useGeneratedKeys="true">
+    insert into t_chart
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="lotteryNum != null">
+        lottery_num,
+      </if>
+      <if test="lotteryType != null">
+        lottery_type,
+      </if>
+      <if test="lotteryFNo != null">
+        lottery_f_no,
+      </if>
+      <if test="lotteryMNo != null">
+        lottery_m_no,
+      </if>
+      <if test="lotteryBNo != null">
+        lottery_b_no,
+      </if>
+      <if test="createDate != null">
+        create_date,
+      </if>
+      <if test="lotteryJson != null">
+        lottery_json,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="lotteryNum != null">
+        #{lotteryNum,jdbcType=INTEGER},
+      </if>
+      <if test="lotteryType != null">
+        #{lotteryType,jdbcType=INTEGER},
+      </if>
+      <if test="lotteryFNo != null">
+        #{lotteryFNo,jdbcType=VARCHAR},
+      </if>
+      <if test="lotteryMNo != null">
+        #{lotteryMNo,jdbcType=VARCHAR},
+      </if>
+      <if test="lotteryBNo != null">
+        #{lotteryBNo,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null">
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lotteryJson != null">
+        #{lotteryJson,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lb.mobile.entity.chartPo">
+    update t_chart
+    <set>
+      <if test="lotteryNum != null">
+        lottery_num = #{lotteryNum,jdbcType=INTEGER},
+      </if>
+      <if test="lotteryType != null">
+        lottery_type = #{lotteryType,jdbcType=INTEGER},
+      </if>
+      <if test="lotteryFNo != null">
+        lottery_f_no = #{lotteryFNo,jdbcType=VARCHAR},
+      </if>
+      <if test="lotteryMNo != null">
+        lottery_m_no = #{lotteryMNo,jdbcType=VARCHAR},
+      </if>
+      <if test="lotteryBNo != null">
+        lottery_b_no = #{lotteryBNo,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null">
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lotteryJson != null">
+        lottery_json = #{lotteryJson,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.lb.mobile.entity.chartPo">
+    update t_chart
+    set lottery_num = #{lotteryNum,jdbcType=INTEGER},
+      lottery_type = #{lotteryType,jdbcType=INTEGER},
+      lottery_f_no = #{lotteryFNo,jdbcType=VARCHAR},
+      lottery_m_no = #{lotteryMNo,jdbcType=VARCHAR},
+      lottery_b_no = #{lotteryBNo,jdbcType=VARCHAR},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      lottery_json = #{lotteryJson,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lb.mobile.entity.chartPo">
+    update t_chart
+    set lottery_num = #{lotteryNum,jdbcType=INTEGER},
+      lottery_type = #{lotteryType,jdbcType=INTEGER},
+      lottery_f_no = #{lotteryFNo,jdbcType=VARCHAR},
+      lottery_m_no = #{lotteryMNo,jdbcType=VARCHAR},
+      lottery_b_no = #{lotteryBNo,jdbcType=VARCHAR},
+      create_date = #{createDate,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+    <select id="selectLotteryChartList" parameterType="java.util.Map" resultType="com.lb.mobile.dto.response.ChartDto">
+        SELECT
+            l.lottery_full_no lotteryFullNo,
+            c.lottery_num lotteryNum,
+            c.lottery_type lotteryType,
+            c.lottery_f_no lotteryFNo ,
+            c.lottery_m_no lotteryMNo,
+            c.lottery_b_no lotteryBNo,
+            c.create_date createDate
+        FROM
+            t_chart c  INNER JOIN
+            t_lottery_info l on c.lottery_num = l.lottery_num
+        WHERE
+        1 = 1
+        <if test="lotteryType != null">
+            and c.lottery_type = #{lotteryType,jdbcType=INTEGER}
+        </if>
+        ORDER BY
+	        c.lottery_num DESC
+        <if test="limit != null">
+            LIMIT  #{limit,jdbcType=INTEGER}
+        </if>
+    </select>
+</mapper>

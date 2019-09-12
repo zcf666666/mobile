@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lb.mobile.dao.professorPoMapper">
+  <resultMap id="BaseResultMap" type="com.lb.mobile.entity.professorPo">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="uid" jdbcType="VARCHAR" property="uid" />
+    <result column="lottery_genre" jdbcType="INTEGER" property="lotteryGenre" />
+    <result column="prf_tip" jdbcType="VARCHAR" property="prfTip" />
+    <result column="prf_rate" jdbcType="DECIMAL" property="prfRate" />
+    <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.lb.mobile.entity.professorPo">
+    <result column="pfr_referral" jdbcType="LONGVARCHAR" property="pfrReferral" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, uid, lottery_genre, prf_tip, prf_rate, create_date, remark
+  </sql>
+  <sql id="Blob_Column_List">
+    pfr_referral
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from t_professor
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from t_professor
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.lb.mobile.entity.professorPo" useGeneratedKeys="true">
+    insert into t_professor (uid, lottery_genre, prf_tip, 
+      prf_rate, create_date, remark, 
+      pfr_referral)
+    values (#{uid,jdbcType=VARCHAR}, #{lotteryGenre,jdbcType=INTEGER}, #{prfTip,jdbcType=VARCHAR}, 
+      #{prfRate,jdbcType=DECIMAL}, #{createDate,jdbcType=TIMESTAMP}, #{remark,jdbcType=VARCHAR}, 
+      #{pfrReferral,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.lb.mobile.entity.professorPo" useGeneratedKeys="true">
+    insert into t_professor
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="uid != null">
+        uid,
+      </if>
+      <if test="lotteryGenre != null">
+        lottery_genre,
+      </if>
+      <if test="prfTip != null">
+        prf_tip,
+      </if>
+      <if test="prfRate != null">
+        prf_rate,
+      </if>
+      <if test="createDate != null">
+        create_date,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+      <if test="pfrReferral != null">
+        pfr_referral,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="uid != null">
+        #{uid,jdbcType=VARCHAR},
+      </if>
+      <if test="lotteryGenre != null">
+        #{lotteryGenre,jdbcType=INTEGER},
+      </if>
+      <if test="prfTip != null">
+        #{prfTip,jdbcType=VARCHAR},
+      </if>
+      <if test="prfRate != null">
+        #{prfRate,jdbcType=DECIMAL},
+      </if>
+      <if test="createDate != null">
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="pfrReferral != null">
+        #{pfrReferral,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lb.mobile.entity.professorPo">
+    update t_professor
+    <set>
+      <if test="uid != null">
+        uid = #{uid,jdbcType=VARCHAR},
+      </if>
+      <if test="lotteryGenre != null">
+        lottery_genre = #{lotteryGenre,jdbcType=INTEGER},
+      </if>
+      <if test="prfTip != null">
+        prf_tip = #{prfTip,jdbcType=VARCHAR},
+      </if>
+      <if test="prfRate != null">
+        prf_rate = #{prfRate,jdbcType=DECIMAL},
+      </if>
+      <if test="createDate != null">
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="pfrReferral != null">
+        pfr_referral = #{pfrReferral,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.lb.mobile.entity.professorPo">
+    update t_professor
+    set uid = #{uid,jdbcType=VARCHAR},
+      lottery_genre = #{lotteryGenre,jdbcType=INTEGER},
+      prf_tip = #{prfTip,jdbcType=VARCHAR},
+      prf_rate = #{prfRate,jdbcType=DECIMAL},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      remark = #{remark,jdbcType=VARCHAR},
+      pfr_referral = #{pfrReferral,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lb.mobile.entity.professorPo">
+    update t_professor
+    set uid = #{uid,jdbcType=VARCHAR},
+      lottery_genre = #{lotteryGenre,jdbcType=INTEGER},
+      prf_tip = #{prfTip,jdbcType=VARCHAR},
+      prf_rate = #{prfRate,jdbcType=DECIMAL},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      remark = #{remark,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+    <select id="selectByMap" parameterType="java.util.Map" resultMap="ResultMapWithBLOBs">
+        select
+        <include refid="Base_Column_List" />
+        ,
+        <include refid="Blob_Column_List" />
+        from t_professor
+        where 1=1
+        <if test="uid != null">
+            and uid = #{uid,jdbcType=VARCHAR}
+        </if>
+    </select>
+    <select id="selectHotProfessor" resultType="com.lb.mobile.dto.response.HotProfessorDto" parameterType="java.util.Map">
+        SELECT
+            u.uid,
+            u.ctm_name ctmName,
+            u.nick_name nickName,
+            u.head_url headUrl,
+            f.file_url file_url,
+            p.prf_rate prfRate,
+            p.pfr_referral pfrReferral,
+            p.prf_tip prfTip,
+            p.lottery_genre lotteryGenre,
+            fv.fans_num fansNum,
+            an.attention_num attentionNum
+        FROM
+            t_professor  p
+            LEFT JOIN t_file  f on p.uid = f.uid  and f.file_type = 4  and f.is_enable =1
+            LEFT JOIN t_user u  on p.uid = u.uid  and u.ctm_genre =1
+            LEFT JOIN t_fans_num  fv on p.uid = fv.uid
+            LEFT JOIN	 t_attention_num an on p.uid = an.uid
+            WHERE 1=1
+        ORDER BY
+            p.prf_rate DESC
+        <if test="limit != null">
+            limit  #{limit,jdbcType = INTEGER}
+        </if>
+    </select>
+    <select id="selectProfessorInfo" parameterType="java.util.Map" resultType="com.lb.mobile.dto.response.ProfessorDto" >
+        SELECT
+        u.uid,
+        u.ctm_name ctmName,
+        u.nick_name nickName,
+        u.head_url headUrl,
+        f.file_url file_url,
+        p.prf_rate prfRate,
+        p.pfr_referral pfrReferral,
+        p.prf_tip prfTip,
+        p.lottery_genre lotteryGenre,
+        fv.fans_num fansNum,
+        an.attention_num attentionNum
+        FROM
+        t_professor  p
+        LEFT JOIN t_file  f on p.uid = f.uid  and f.file_type = 4  and f.is_enable =1
+        LEFT JOIN t_user u  on p.uid = u.uid  and u.ctm_genre =1
+        LEFT JOIN t_fans_num  fv on p.uid = fv.uid
+        LEFT JOIN	 t_attention_num an on p.uid = an.uid
+        WHERE 1=1
+        <if test="uid != null">
+            and p.uid = #{uid,jdbcType=VARCHAR}
+        </if>
+        <if test="lotteryGenre != null">
+            and lottery_genre = #{lotteryGenre,jdbcType=INTEGER}
+        </if>
+    </select>
+</mapper>

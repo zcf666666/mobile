@@ -1,0 +1,441 @@
+package com.lb.mobile.service.impl;
+
+import com.lb.mobile.comm.base.constant.Constant;
+import com.lb.mobile.comm.util.JsonUtil;
+import com.lb.mobile.dao.lotteryInfoPoMapper;
+import com.lb.mobile.dao.professorPoMapper;
+import com.lb.mobile.dao.schemePoMapper;
+import com.lb.mobile.entity.lottery.dualcoloredball.DualColoredBallPd;
+import com.lb.mobile.entity.lottery.dualcoloredball.DualColoredBallRs;
+import com.lb.mobile.entity.lottery.lottery3d.Lottery3dPd;
+import com.lb.mobile.entity.lottery.lottery3d.Lottery3dRs;
+import com.lb.mobile.entity.lottery.superlotto.SuperLottoPd;
+import com.lb.mobile.entity.lottery.superlotto.SuperLottoRs;
+import com.lb.mobile.entity.lotteryInfoPo;
+import com.lb.mobile.entity.professorPo;
+import com.lb.mobile.entity.schemePoWithBLOBs;
+import com.lb.mobile.service.SchemeService;
+import org.apache.commons.lang3.ArrayUtils;
+import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+@Service
+public class SchemeServiceIpml implements SchemeService {
+
+    private static final Logger log = LoggerFactory.getLogger(SchemeServiceIpml.class);
+
+    @Autowired
+    public schemePoMapper schemePoMapper;
+    @Autowired
+    public lotteryInfoPoMapper lotteryInfoPoMapper;
+    @Autowired
+    public professorPoMapper  professorPoMapper;
+    @Override
+    public void fillSchemePrediction(lotteryInfoPo lotteryInfo) {
+        if (lotteryInfo == null){
+            log.info("SchemeServiceIpml fillSchemePrediction lotteryInfo is null!");
+            return;
+        }
+        Map<String,Object> queryParam = new HashMap<>();
+        queryParam.put("schemeLotteryType",lotteryInfo.getLotteryId());
+        queryParam.put("schemePeriods",lotteryInfo.getLotteryNum());
+        queryParam.put("schemeStatus",new int[]{Constant.SchemeStatus.scheme_status_wait});
+        List<schemePoWithBLOBs> schemeList = schemePoMapper.selectSchemeListByMap(queryParam);
+        if (schemeList.size() == 0 ||schemeList == null){
+            log.info("SchemeServiceIpml fillSchemePrediction without schemePo");
+            return;
+        }
+        String lotteryFullNo = lotteryInfo.getLotteryFullNo();
+
+        if(StringUtils.isEmpty(lotteryFullNo)){
+            lotteryInfo.setLotteryStatus(Constant.LotteryStatus.lottery_status_fail);
+            lotteryInfo.setRemark("资源缺少有效的开奖全号！");
+            lotteryInfoPoMapper.updateByPrimaryKeySelective(lotteryInfo);
+            log.info("SchemeServiceIpml fillSchemePrediction lotteryFullNo is null!"+ JsonUtil.toJSONString(lotteryInfo));
+            return;
+        }
+        for (schemePoWithBLOBs schemePoWithBLOBs : schemeList){
+            int  lotteryType = schemePoWithBLOBs.getSchemeLotteryType();
+            switch (lotteryType){
+                case Constant.LotteryType.lottery_type_superlotto:
+                    saveSuperLotto(lotteryFullNo,schemePoWithBLOBs);
+                    continue;
+                case Constant.LotteryType.lottery_type_arrange_3:
+                    saveArrage3(lotteryFullNo,schemePoWithBLOBs);
+                    continue;
+                case Constant.LotteryType.lottery_type_dualcoloredball:
+                    saveDualColoredBall(lotteryFullNo,schemePoWithBLOBs);
+                    continue;
+                case Constant.LotteryType.lottery_type_lottery_3_d:
+                    saveArrage3(lotteryFullNo,schemePoWithBLOBs);
+                    continue;
+                default:
+                    continue;
+            }
+        }
+        lotteryInfo.setLotteryStatus(Constant.LotteryStatus.lottery_status_succ);
+        lotteryInfo.setUpdateDate(new Date());
+        lotteryInfoPoMapper.updateByPrimaryKeySelective(lotteryInfo);
+    }
+    public void  saveSuperLotto(String lotteryFullNo,schemePoWithBLOBs schemePoWithBLOBs){
+        String redBall = lotteryFullNo.substring(0, lotteryFullNo.length() - 5);
+        String blueBall  = lotteryFullNo.substring(redBall.length(), lotteryFullNo.length());
+        SuperLottoPd superLottoPd = JsonUtil.toBean(schemePoWithBLOBs.getSchemeGenrePd(), SuperLottoPd.class);
+        SuperLottoRs superLottoRs = new SuperLottoRs();
+        String[] split = redBall.split(Constant.lottery_data_spilt);
+        superLottoRs.setSchemeTfRs(matchString(Constant.lottery_data_spilt,redBall,superLottoPd.getSchemeTf()));
+        superLottoRs.setTfrsRsSucc(ArrayUtils.removeElement(superLottoRs.getSchemeTfRs().split(Constant.lottery_data_spilt),"").length < 5 ? Boolean.FALSE:Boolean.TRUE);
+        superLottoRs.setSchemeEtyRs(matchString(Constant.lottery_data_spilt,redBall,superLottoPd.getSchemeEty()));
+        superLottoRs.setEtyrsRsSucc(ArrayUtils.removeElement(superLottoRs.getSchemeEtyRs().split(Constant.lottery_data_spilt),"").length <4 ? Boolean.FALSE:Boolean.TRUE);
+        superLottoRs.setSchemeTyRs(matchString(Constant.lottery_data_spilt,redBall,superLottoPd.getSchemeTy()));
+        superLottoRs.setTyrsRsSucc(ArrayUtils.removeElement(superLottoRs.getSchemeTyRs().split(Constant.lottery_data_spilt),"").length < 3 ? Boolean.FALSE:Boolean.TRUE);
+        superLottoRs.setSchemeEtRs(matchString(Constant.lottery_data_spilt,redBall,superLottoPd.getSchemeEt()));
+        superLottoRs.setEtrRsSucc(ArrayUtils.removeElement(superLottoRs.getSchemeEtRs().split(Constant.lottery_data_spilt),"").length < 3 ? Boolean.FALSE:Boolean.TRUE);
+        superLottoRs.setSchemeBibcockRs(matchString(Constant.lottery_data_spilt,split[0],superLottoPd.getSchemeBibcock()));
+        superLottoRs.setBibcockRsSucc(hasDigit(superLottoRs.getSchemeBibcockRs()));
+        superLottoRs.setSchemePhixRs(matchString(Constant.lottery_data_spilt,split[split.length-1],superLottoPd.getSchemePnix()));
+        superLottoRs.setPhixRsSucc(hasDigit(superLottoRs.getSchemePhixRs()));
+        superLottoRs.setSchemeBtgallbladderRs(matchString(Constant.lottery_data_spilt,redBall,superLottoPd.getSchemeBtgallbladder()));
+        superLottoRs.setBtgallbladderRsSucc(hasDigit(superLottoRs.getSchemeBtgallbladderRs()));
+        superLottoRs.setSchemeTwogallbladderRs(matchString(Constant.lottery_data_spilt,redBall,superLottoPd.getSchemeTwogallbladder()));
+        superLottoRs.setTwogallbladderRsSucc(hasDigit(superLottoRs.getSchemeTwogallbladderRs()));
+        superLottoRs.setSchemeThreegallbladderRs(matchString(Constant.lottery_data_spilt,redBall,superLottoPd.getSchemeThreegallbladder()));
+        superLottoRs.setThreegallbladderRsSucc(hasDigit(superLottoRs.getSchemeThreegallbladderRs()));
+
+        superLottoRs.setSchemeKtgallbladderRs(notMatchString(Constant.lottery_data_spilt,superLottoPd.getSchemeKtgallbladder(),redBall));
+        superLottoRs.setKtgallbladderRsSucc(isSameArrayLenth(superLottoRs.getSchemeKtgallbladderRs(),superLottoPd.getSchemeKtgallbladder(),Constant.lottery_data_spilt));
+        superLottoRs.setSchemeKsgallbladderRs(notMatchString(Constant.lottery_data_spilt,superLottoPd.getSchemeKsgallbladder(),redBall));
+        superLottoRs.setKsgallbladderRsSucc(isSameArrayLenth(superLottoRs.getSchemeKsgallbladderRs(),superLottoPd.getSchemeKsgallbladder(),Constant.lottery_data_spilt));
+        superLottoRs.setSchemeBtwogallbladderRs(matchString(Constant.lottery_data_spilt,blueBall,superLottoPd.getSchemeBtwogallbladder()));
+        superLottoRs.setBtwogallbladderRsSucc(hasDigit(superLottoRs.getSchemeBtwogallbladderRs()));
+        superLottoRs.setSchemeBfourgallbladderRs(matchString(Constant.lottery_data_spilt,blueBall,superLottoPd.getSchemeBfourgallbladder()));
+        superLottoRs.setBfourgallbladderRsSucc(hasDigit(superLottoRs.getSchemeBfourgallbladderRs()));
+        superLottoRs.setSchemeBsixgallbladderRs(matchString(Constant.lottery_data_spilt,blueBall,superLottoPd.getSchemeBsixgallbladder()));
+        superLottoRs.setBsixgallbladderRsSucc(ArrayUtils.removeElement(superLottoRs.getSchemeBsixgallbladderRs().split(Constant.lottery_data_spilt),"").length < 2 ? Boolean.FALSE:Boolean.TRUE);
+        superLottoRs.setSchemeKbthreegallbladderRs(notMatchString(Constant.lottery_data_spilt,superLottoPd.getSchemeKbthreegallbladder(),blueBall));
+        superLottoRs.setKbthreegallbladderRsSucc(isSameArrayLenth(superLottoRs.getSchemeKbthreegallbladderRs(),superLottoPd.getSchemeKbthreegallbladder(),Constant.lottery_data_spilt));
+        superLottoRs.setSchemeKbsixgallbladderRs(notMatchString(Constant.lottery_data_spilt,superLottoPd.getSchemeKbsixgallbladder(),blueBall));
+        superLottoRs.setKbsixgallbladderRsSucc(isSameArrayLenth(superLottoRs.getSchemeKbsixgallbladderRs(),superLottoPd.getSchemeKbsixgallbladder(),Constant.lottery_data_spilt));
+
+        Map<String, Object> resultMap = getSuperLottoPrizewinningMsg(redBall, blueBall, schemePoWithBLOBs.getSchemeFull());
+        int schemeStatus = resultMap.containsKey("schemeStatus") ? Constant.SchemeStatus.scheme_status_succ : Constant.SchemeStatus.scheme_status_fail;
+        schemePoWithBLOBs.setSchemeFullRs(JsonUtil.toJSONString(resultMap));
+        schemePoWithBLOBs.setSchemeLotteryResults(lotteryFullNo);
+        schemePoWithBLOBs.setSchemeStatus(schemeStatus);
+        schemePoWithBLOBs.setSchemeGenreRs(JsonUtil.toJSONString(superLottoRs));
+        schemePoWithBLOBs.setUpdateDate( new Date());
+        schemePoMapper.updateByPrimaryKeySelective(schemePoWithBLOBs);
+
+        updateProfessorRate(schemePoWithBLOBs,schemeStatus);
+
+    }
+    public  Map<String,Object> getSuperLottoPrizewinningMsg(String redBall,String blueBall,String schemeFull){
+
+        Map<String,Object> resultMap = new HashMap<>();
+        String redBallSchemeNo = schemeFull.substring(0, schemeFull.length() - 5);
+        String blueBallSchemNo = schemeFull.substring(redBall.length(), schemeFull.length());
+        String redBallRs = matchString(Constant.lottery_data_spilt, redBall, redBallSchemeNo);
+        String blueBallRs = matchString(Constant.lottery_data_spilt,blueBall,blueBallSchemNo);
+        if(StringUtils.isNotBlank(redBallRs)){
+            resultMap.put("redBall",ArrayUtils.removeElement(redBallRs.split(Constant.lottery_data_spilt),""));
+        }
+        if(StringUtils.isNotBlank(blueBallRs)){
+            resultMap.put("blueBall", ArrayUtils.removeElement(blueBallRs.split(Constant.lottery_data_spilt), ""));
+        }
+        int blueBalls = blueBallRs.split(Constant.lottery_data_spilt).length;
+        int redBalls = redBallRs.split(Constant.lottery_data_spilt).length;
+        if (blueBalls == 2){
+            resultMap.put("schemeStatus",Constant.SchemeStatus.scheme_status_succ);
+            return resultMap;
+        }
+        switch (redBalls){
+            case 6: case 5:  case 4: case 3:
+                   switch (blueBalls){
+                       case 0 : case 1:
+                           resultMap.put("schemeStatus",Constant.SchemeStatus.scheme_status_succ);
+                           break;
+                   }
+                break;
+            case 2:
+                switch (blueBalls){
+                     case 1:
+                        resultMap.put("schemeStatus",Constant.SchemeStatus.scheme_status_succ);
+                        break;
+                }
+                break;
+        }
+        return resultMap;
+    }
+    public  void  saveArrage3(String lotteryFullNo,schemePoWithBLOBs schemePoWithBLOBs){
+        Lottery3dPd lottery3dPd = JsonUtil.toBean(schemePoWithBLOBs.getSchemeGenrePd(), Lottery3dPd.class);
+        Lottery3dRs Lottery3dRs = new Lottery3dRs();
+        Lottery3dRs.setThreeGallbladderRs(matchString(Constant.lottery_data_spilt,lotteryFullNo,lottery3dPd.getThreeGallbladder()));
+        Lottery3dRs.setThreeGallbladderRsSucc(hasDigit(Lottery3dRs.getThreeGallbladderRs()));
+        Lottery3dRs.setDbGallbladderRs(matchString(Constant.lottery_data_spilt,lotteryFullNo,lottery3dPd.getDbGallbladder()));
+        Lottery3dRs.setDbGallbladderRsSucc(hasDigit(Lottery3dRs.getDbGallbladderRs()));
+        Lottery3dRs.setGallbladderRs(matchString(Constant.lottery_data_spilt,lotteryFullNo,lottery3dPd.getGallbladder()));
+        Lottery3dRs.setGallbladderRsSucc(hasDigit(Lottery3dRs.getGallbladderRs()));
+        Lottery3dRs.setKillGallbladderRs(notMatchString(Constant.lottery_data_spilt,lottery3dPd.getKillGallbladder(),lotteryFullNo));
+        Lottery3dRs.setKillGallbladderRsSucc(hasDigit(Lottery3dRs.getKillGallbladderRs()));
+        Lottery3dRs.setKillTwoGallbladderRs(notMatchString(Constant.lottery_data_spilt,lottery3dPd.getKillTwoGallbladder(),lotteryFullNo));
+        Lottery3dRs.setKillTwoGallbladderRsSucc(ArrayUtils.removeElement(Lottery3dRs.getKillTwoGallbladderRs().split(Constant.lottery_data_spilt),"").length < 2 ? Boolean.FALSE:Boolean.TRUE);
+        Lottery3dRs.setKillThreeGallbladderRs(notMatchString(Constant.lottery_data_spilt,lottery3dPd.getKillThreeGallbladder(),lotteryFullNo));
+        Lottery3dRs.setKillThreeGallbladderRsSucc(ArrayUtils.removeElement(Lottery3dRs.getKillThreeGallbladderRs().split(Constant.lottery_data_spilt),"").length < 3 ? Boolean.FALSE:Boolean.TRUE);
+        Lottery3dRs.setFiveGallbladderRs(matchString(Constant.lottery_data_spilt,lotteryFullNo,lottery3dPd.getFiveGallbladder()));
+        Lottery3dRs.setFiveGallbladderRsSucc(ArrayUtils.removeElement(Lottery3dRs.getFiveGallbladderRs().split(Constant.lottery_data_spilt),"").length < 2 ? Boolean.FALSE:Boolean.TRUE);
+        Lottery3dRs.setSixGallbladderRs(matchString(Constant.lottery_data_spilt,lotteryFullNo,lottery3dPd.getSixGallbladder()));
+        Lottery3dRs.setSixGallbladderRsSucc(ArrayUtils.removeElement(Lottery3dRs.getSixGallbladderRs().split(Constant.lottery_data_spilt),"").length < 3 ? Boolean.FALSE:Boolean.TRUE);
+        Lottery3dRs.setBxPositionGbRs(getBxPositionGbRs(lottery3dPd.getBxPositionGb(),lotteryFullNo));
+        Lottery3dRs.setBxPositionGbRsSucc(hasDigit(Lottery3dRs.getBxPositionGbRs()));
+        Lottery3dRs.setSumGallbladderRs(matchString(Constant.lottery_data_spilt,getSumGallbladderRs(lotteryFullNo),lottery3dPd.getSumGallbladder()));
+        Lottery3dRs.setSumGallbladderRsSucc(hasDigit(Lottery3dRs.getSumGallbladderRs()));
+        Lottery3dRs.setSpanGallbladderRs(getSpanGallbladderRs(lotteryFullNo,lottery3dPd.getSpanGallbladder()));
+        Lottery3dRs.setSumGallbladderRsSucc(hasDigit(Lottery3dRs.getSpanGallbladderRs()));
+        Lottery3dRs.setGroupHuntingGbRs(matchGroupString(lotteryFullNo,Constant.lottery_data_spilt,lottery3dPd.getGroupHuntingGb(),Constant.lottery_data_group_spilt));
+        Lottery3dRs.setGroupHuntingGbRsSucc(hasDigit(Lottery3dRs.getGroupHuntingGbRs()));
+
+        Map<String, Object> resultMap = getArrage3PrizewinningMsg(lotteryFullNo, schemePoWithBLOBs.getSchemeFull());
+        int schemeStatus = resultMap.containsKey("schemeStatus") ? Constant.SchemeStatus.scheme_status_succ : Constant.SchemeStatus.scheme_status_fail;
+        schemePoWithBLOBs.setSchemeFullRs(JsonUtil.toJSONString(resultMap));
+        schemePoWithBLOBs.setSchemeStatus(schemeStatus);
+        schemePoWithBLOBs.setSchemeLotteryResults(lotteryFullNo);
+        schemePoWithBLOBs.setSchemeGenreRs(JsonUtil.toJSONString(Lottery3dRs));
+        schemePoWithBLOBs.setUpdateDate( new Date());
+        schemePoMapper.updateByPrimaryKeySelective(schemePoWithBLOBs);
+
+        updateProfessorRate(schemePoWithBLOBs,schemeStatus);
+    }
+    public  Map<String, Object> getArrage3PrizewinningMsg(String lotteryFullNo,String schemeFull ){
+        Map<String,Object> resultMap = new HashMap<>();
+        String resultBalls = matchString(Constant.lottery_data_spilt, lotteryFullNo, schemeFull);
+        if(resultBalls.split(Constant.lottery_data_spilt).length ==lotteryFullNo.split(Constant.lottery_data_spilt).length ){
+            resultMap.put("schemeStatus",Constant.SchemeStatus.scheme_status_succ);
+            resultMap.put("resultBalls",resultBalls);
+        }
+        return resultMap;
+    }
+    public void  saveDualColoredBall(String lotteryFullNo,schemePoWithBLOBs schemePoWithBLOBs){
+
+        String redBall = lotteryFullNo.substring(0, lotteryFullNo.length() - 2);
+        String blueBall  = lotteryFullNo.substring(redBall.length(), lotteryFullNo.length()).replace(Constant.lottery_data_spilt,"");;
+        DualColoredBallPd dualColoredBallPd = JsonUtil.toBean(schemePoWithBLOBs.getSchemeGenrePd(), DualColoredBallPd.class);
+        DualColoredBallRs dualColoredBallRs = new DualColoredBallRs();
+        String[] split = redBall.split(Constant.lottery_data_spilt);
+        dualColoredBallRs.setSchemeRTfRs(matchString(Constant.lottery_data_spilt,redBall,dualColoredBallPd.getSchemeRTf()));
+        dualColoredBallRs.setrTfRsSucc(ArrayUtils.removeElement(dualColoredBallRs.getSchemeRTfRs().split(Constant.lottery_data_spilt),"").length < 6 ? Boolean.FALSE:Boolean.TRUE);
+        dualColoredBallRs.setSchemeREtyRs(matchString(Constant.lottery_data_spilt,redBall,dualColoredBallPd.getSchemeREty()));
+        dualColoredBallRs.setrEtyRsSucc(ArrayUtils.removeElement(dualColoredBallRs.getSchemeREtyRs().split(Constant.lottery_data_spilt),"").length < 5 ? Boolean.FALSE:Boolean.TRUE);
+        dualColoredBallRs.setSchemeRTyRs(matchString(Constant.lottery_data_spilt,redBall,dualColoredBallPd.getSchemeRTy()));
+        dualColoredBallRs.setrTyRsSucc(ArrayUtils.removeElement(dualColoredBallRs.getSchemeRTyRs().split(Constant.lottery_data_spilt),"").length < 4 ? Boolean.FALSE:Boolean.TRUE);
+        dualColoredBallRs.setSchemeREtRs(matchString(Constant.lottery_data_spilt,redBall,dualColoredBallPd.getSchemeREt()));
+        dualColoredBallRs.setRetRsSucc(ArrayUtils.removeElement(dualColoredBallRs.getSchemeREtRs().split(Constant.lottery_data_spilt),"").length < 3 ? Boolean.FALSE:Boolean.TRUE);
+        dualColoredBallRs.setSchemeBibcockRs(matchString(Constant.lottery_data_spilt,dualColoredBallPd.getSchemeBibcock(),split[0]));
+        dualColoredBallRs.setBibcockRsSucc(hasDigit(dualColoredBallRs.getSchemeBibcockRs()));
+        dualColoredBallRs.setSchemePnixRs((matchString(Constant.lottery_data_spilt,dualColoredBallPd.getSchemePnix(),split[split.length-1])));
+        dualColoredBallRs.setPnixRsSucc(hasDigit(dualColoredBallRs.getSchemePnixRs()));
+        dualColoredBallRs.setRedGallbladderRs(matchString(Constant.lottery_data_spilt,redBall,dualColoredBallPd.getRedGallbladder()));
+        dualColoredBallRs.setGallbladderRsSucc(hasDigit(dualColoredBallRs.getRedGallbladderRs()));
+        dualColoredBallRs.setRedTwoGallbladderRs(matchString(Constant.lottery_data_spilt,redBall,dualColoredBallPd.getRedTwoGallbladder()));
+        dualColoredBallRs.setTwoGallbladderRsSucc(hasDigit(dualColoredBallRs.getRedThreeGallbladderRs()));
+        dualColoredBallRs.setRedThreeGallbladderRs(matchString(Constant.lottery_data_spilt,redBall,dualColoredBallPd.getRedThreeGallbladder()));
+        dualColoredBallRs.setThreeGallbladderRsSucc(hasDigit(dualColoredBallRs.getRedThreeGallbladderRs()));
+        dualColoredBallRs.setRedKtGallbladdeRsr(notMatchString(Constant.lottery_data_spilt,dualColoredBallPd.getRedKtGallbladder(),redBall));
+        dualColoredBallRs.setKtGallbladdeRsrSucc(isSameArrayLenth(dualColoredBallRs.getRedKtGallbladdeRsr(),dualColoredBallPd.getRedKtGallbladder(),Constant.lottery_data_spilt));
+        dualColoredBallRs.setRedKsGallbladderRs(notMatchString(Constant.lottery_data_spilt,dualColoredBallPd.getRedKsGallbladder(),redBall));
+        dualColoredBallRs.setKsGallbladderRsSucc(isSameArrayLenth(dualColoredBallRs.getBlueKsGallbladderRs(),dualColoredBallPd.getRedKsGallbladder(),Constant.lottery_data_spilt));
+        dualColoredBallRs.setBlueGallbladderRs(matchString(Constant.lottery_data_spilt,blueBall,dualColoredBallPd.getBlueGallbladder()));
+        dualColoredBallRs.setBlueGallbladderRsSucc(hasDigit(dualColoredBallRs.getBlueGallbladderRs()));
+        dualColoredBallRs.setBlueTwoGallbladderRs(matchString(Constant.lottery_data_spilt,blueBall,dualColoredBallPd.getBlueTwoGallbladder()));
+        dualColoredBallRs.setBlueTwoGallbladderRsSucc(hasDigit(dualColoredBallRs.getBlueTwoGallbladderRs()));
+        dualColoredBallRs.setBlueThreeGallbladderRs(matchString(Constant.lottery_data_spilt,blueBall,dualColoredBallPd.getBlueThreeGallbladder()));
+        dualColoredBallRs.setBlueThreeGallbladderRsSucc(hasDigit(dualColoredBallRs.getBlueThreeGallbladderRs()));
+        dualColoredBallRs.setBlueSixGallbladderRs(matchString(Constant.lottery_data_spilt,blueBall,dualColoredBallPd.getBlueSixGallbladder()));
+        dualColoredBallRs.setBlueSixGallbladderRsSucc(hasDigit(dualColoredBallRs.getBlueSixGallbladderRs()));
+        dualColoredBallRs.setBlueKtGallbladderRs(notMatchString(Constant.lottery_data_spilt,dualColoredBallPd.getBlueKtGallbladder(),blueBall));
+        dualColoredBallRs.setBlueKtGallbladderRsSucc(isSameArrayLenth(dualColoredBallRs.getBlueKtGallbladderRs(),dualColoredBallPd.getBlueKtGallbladder(),Constant.lottery_data_spilt));
+        dualColoredBallRs.setBlueKsGallbladderRs(notMatchString(Constant.lottery_data_spilt,dualColoredBallPd.getBlueKsGallbladder(),blueBall));
+        dualColoredBallRs.setBlueKsGallbladderRsSucc(isSameArrayLenth(dualColoredBallRs.getBlueKsGallbladderRs(),dualColoredBallPd.getBlueKsGallbladder(),Constant.lottery_data_spilt));
+
+        Map<String, Object> resultMap = getDualColoredBallPrizewinningMsg(redBall, blueBall, schemePoWithBLOBs.getSchemeFull());
+        int schemeStatus = resultMap.containsKey("schemeStatus") ? Constant.SchemeStatus.scheme_status_succ : Constant.SchemeStatus.scheme_status_fail;
+        schemePoWithBLOBs.setSchemeFullRs(JsonUtil.toJSONString(resultMap));
+        schemePoWithBLOBs.setSchemeStatus(schemeStatus);
+        schemePoWithBLOBs.setSchemeLotteryResults(lotteryFullNo);
+        schemePoWithBLOBs.setSchemeGenreRs(JsonUtil.toJSONString(dualColoredBallRs));
+        schemePoWithBLOBs.setUpdateDate( new Date());
+        schemePoMapper.updateByPrimaryKeySelective(schemePoWithBLOBs);
+        updateProfessorRate(schemePoWithBLOBs,schemeStatus);
+    }
+    public  Map<String,Object> getDualColoredBallPrizewinningMsg(String redBall,String blueBall,String schemeFull){
+
+        Map<String,Object> resultMap = new HashMap<>();
+        String redBallSchemeNo = schemeFull.substring(0, schemeFull.length() - 2).replace(Constant.lottery_data_spilt,"");;
+        String blueBallSchemNo = schemeFull.substring(redBall.length(), schemeFull.length());
+        String redBallRs = matchString(Constant.lottery_data_spilt, redBall, redBallSchemeNo);
+        String blueBallRs = matchString(Constant.lottery_data_spilt,blueBall,blueBallSchemNo);
+        if(StringUtils.isNotBlank(redBallRs)){
+            resultMap.put("redBall",ArrayUtils.removeElement(redBallRs.split(Constant.lottery_data_spilt),""));
+        }
+        if(StringUtils.isNotBlank(blueBallRs)){
+            resultMap.put("blueBall", ArrayUtils.removeElement(blueBallRs.split(Constant.lottery_data_spilt), ""));
+        }
+        if (StringUtils.isNotBlank(blueBallRs)){
+            resultMap.put("schemeStatus",Constant.SchemeStatus.scheme_status_succ);
+            return resultMap;
+        }
+        switch (redBallRs.split(Constant.lottery_data_spilt).length){
+            case  6:  case  5:   case  4:
+                resultMap.put("schemeStatus",Constant.SchemeStatus.scheme_status_succ);
+                break;
+        }
+        return resultMap;
+    }
+    public void  updateProfessorRate(schemePoWithBLOBs schemePoWithBLOBs, int schemeStatus){
+
+        Map<String,Object> queryParam = new HashMap<>();
+        queryParam.put("uid",schemePoWithBLOBs.getUid());
+
+        professorPo professorPo = professorPoMapper.selectByMap(queryParam);
+
+        queryParam.put("schemeStatus" ,new int[]{Constant.SchemeStatus.scheme_status_succ}) ;
+        int succNum = schemePoMapper.countSchemeByStatus(queryParam);
+
+        queryParam.remove("schemeStatus");
+        queryParam.put("schemeStatus",new int[]{Constant.SchemeStatus.scheme_status_succ,Constant.SchemeStatus.scheme_status_fail});
+        int totalNum = schemePoMapper.countSchemeByStatus(queryParam);
+
+        professorPo.setPrfRate( new BigDecimal(succNum).divide(new BigDecimal(totalNum), 2, RoundingMode.HALF_UP).multiply(new BigDecimal(100)));
+        professorPoMapper.updateByPrimaryKeySelective(professorPo);
+    }
+    public static String notMatchString (String spilt, String source,String matchStr){
+        StringBuffer stringBuffer = new StringBuffer();
+        String[] sourceArr = source.split(spilt);
+        for (int i = 0 ;i< sourceArr.length;i++){
+            if (!matchStr.contains(sourceArr[i].trim())){
+                if(i == (sourceArr.length -1)){
+                    stringBuffer.append(sourceArr[i].trim());
+                }else{
+                    stringBuffer.append(sourceArr[i].trim()).append(spilt);
+                }
+            }
+        }
+        return stringBuffer.toString();
+    }
+    public static  String matchString (String spilt, String source,String matchStr){
+        StringBuffer stringBuffer = new StringBuffer();
+        String[] sourceArr = source.split(spilt);
+        for (int i = 0 ;i< sourceArr.length;i++){
+            if (matchStr.contains(sourceArr[i].trim())){
+                if(i == (sourceArr.length -1)){
+                    stringBuffer.append(sourceArr[i].trim());
+                }else{
+                    stringBuffer.append(sourceArr[i].trim()).append(spilt);
+                }
+            }
+        }
+        return stringBuffer.toString();
+    }
+    public static  String matchGroupString(String source,String spilt ,String matchStr,String groupSpilt){
+        StringBuffer stringBuffer = new StringBuffer();
+        String[] matchArr = matchStr.split(groupSpilt);
+        String[] sourceArr = source.split(spilt);
+        List<String> list = new ArrayList<>();
+        for (String str : matchArr){
+            list.clear();
+            for (int i = 0 ;i<sourceArr.length;i++){
+                if(str.contains(sourceArr[i])){
+                    list.add(sourceArr[i]);
+                }
+            }
+            if(list.size() == sourceArr.length){
+                stringBuffer.append(str);
+            }
+        }
+        return stringBuffer.toString();
+    }
+    public static boolean isSameArrayLenth(String array,String matchArray,String spilt){
+        int arrayLenth = 0;
+        int matchArrayLenth = 0;
+        if(StringUtils.isNotBlank(array)){
+            String[] arrays = array.split(spilt);
+            arrayLenth = ArrayUtils.removeElement(arrays,"").length;
+        }
+        if(StringUtils.isNotBlank(matchArray)){
+            String[] matchArrays = matchArray.split(spilt);
+            matchArrayLenth  =  ArrayUtils.removeElement(matchArrays,"").length;
+        }
+        return arrayLenth == matchArrayLenth;
+    }
+    public static boolean hasDigit(String content){
+        if(StringUtils.isEmpty(content) ){
+            return  false;
+        }
+        Pattern p = Pattern.compile(".*\\d+.*");
+        Matcher m = p.matcher(content);
+        return m.matches();
+    }
+    public static String getBxPositionGbRs(String bx,String lotteryFullNo){
+        String[] bxArr = bx.split(Constant.lottery_data_spilt);
+        String[] lotteryArr = lotteryFullNo.split(Constant.lottery_data_spilt);
+        if(bxArr[bxArr.length-1].equals(lotteryArr[bxArr.length-1])){
+            return bx;
+        }
+        return  "";
+    }
+    public static String getSumGallbladderRs(String lotteryFullNo){
+        String[] lotteryArr = lotteryFullNo.split(Constant.lottery_data_spilt);
+        int sum = 0;
+        for (String str : lotteryArr){
+            sum += Integer.parseInt(str);
+        }
+        return String.valueOf(sum);
+    }
+    public  static  String getSpanGallbladderRs(String lotteryFullNo,String SpanGallbladderRs){
+        String[] lotteryArr = lotteryFullNo.split(Constant.lottery_data_spilt);
+        int num = 0;
+        Arrays.sort(lotteryArr);
+        num = Integer.parseInt(lotteryArr[lotteryArr.length-1]) - Integer.parseInt(lotteryArr[0]);
+        return SpanGallbladderRs.contains(String.valueOf(num)) ? String.valueOf(num) : "";
+    }
+    public static void main(String[] args) {
+        String  str="1-2-3";
+        String str1 ="-2-";
+        String str2 ="--2";
+        String str3 ="2--";
+        String[] split = str.split("-");
+        String[] split1 =  str1.split("-");
+        String[] split2 = str2.split("-");
+        String[] split3 = str3.split("-");
+        System.out.println(getBxPositionGbRs("-2-","1-6-2"));
+        System.out.println(getBxPositionGbRs("2--","2-1-3"));
+        System.out.println(getBxPositionGbRs("--2","1-3-2"));
+        System.out.println(Arrays.toString(split));
+        System.out.println(Arrays.toString(split1));
+        System.out.println(Arrays.toString(split2));
+        System.out.println(Arrays.toString(split3));
+        System.out.println("".split("-").length);
+        System.out.println("-".split("-").length);
+        Pattern p = Pattern.compile(".*\\d+.*");
+        Matcher m = p.matcher("-1-");
+        System.out.println(m.matches());
+        System.out.println(getSpanGallbladderRs("1-15-12","13-14"));
+        String string ="08-06-04-03-02-01-22";
+        String redBall = string.substring(0, string.length() - 3);
+        String blueBall  = string.substring(redBall.length(), string.length());
+        System.out.println(redBall);
+        System.out.println(blueBall.replace("-",""));
+        String string1 = matchString("-", "08-06-04-03-02-01", "06-03");
+        System.out.println(string1 );
+        String string2 = matchGroupString("8-6-4", "-", "8-6-3&9-6-4&6-8-4", "&");
+        System.out.println(string2);
+    }
+}

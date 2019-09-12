@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lb.mobile.dao.lotteryInfoPoMapper">
+  <resultMap id="BaseResultMap" type="com.lb.mobile.entity.lotteryInfoPo">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="lottery_id" jdbcType="INTEGER" property="lotteryId" />
+    <result column="lottery_full_no" jdbcType="VARCHAR" property="lotteryFullNo" />
+    <result column="lottery_num" jdbcType="INTEGER" property="lotteryNum" />
+    <result column="lottery_f_no" jdbcType="VARCHAR" property="lotteryFNo" />
+    <result column="lottery_m_no" jdbcType="VARCHAR" property="lotteryMNo" />
+    <result column="lottery_b_no" jdbcType="VARCHAR" property="lotteryBNo" />
+    <result column="lottery_status" jdbcType="INTEGER" property="lotteryStatus" />
+    <result column="lottery_date" jdbcType="TIMESTAMP" property="lotteryDate" />
+    <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
+    <result column="update_date" jdbcType="TIMESTAMP" property="updateDate" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, lottery_id, lottery_full_no, lottery_num, lottery_f_no, lottery_m_no, lottery_b_no, 
+    lottery_status, lottery_date, create_date, update_date, remark
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_lottery_info
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from t_lottery_info
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.lb.mobile.entity.lotteryInfoPo" useGeneratedKeys="true">
+    insert into t_lottery_info (lottery_id, lottery_full_no, lottery_num, 
+      lottery_f_no, lottery_m_no, lottery_b_no, 
+      lottery_status, lottery_date, create_date, 
+      update_date, remark)
+    values (#{lotteryId,jdbcType=INTEGER}, #{lotteryFullNo,jdbcType=VARCHAR}, #{lotteryNum,jdbcType=INTEGER}, 
+      #{lotteryFNo,jdbcType=VARCHAR}, #{lotteryMNo,jdbcType=VARCHAR}, #{lotteryBNo,jdbcType=VARCHAR}, 
+      #{lotteryStatus,jdbcType=INTEGER}, #{lotteryDate,jdbcType=TIMESTAMP}, #{createDate,jdbcType=TIMESTAMP}, 
+      #{updateDate,jdbcType=TIMESTAMP}, #{remark,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.lb.mobile.entity.lotteryInfoPo" useGeneratedKeys="true">
+    insert into t_lottery_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="lotteryId != null">
+        lottery_id,
+      </if>
+      <if test="lotteryFullNo != null">
+        lottery_full_no,
+      </if>
+      <if test="lotteryNum != null">
+        lottery_num,
+      </if>
+      <if test="lotteryFNo != null">
+        lottery_f_no,
+      </if>
+      <if test="lotteryMNo != null">
+        lottery_m_no,
+      </if>
+      <if test="lotteryBNo != null">
+        lottery_b_no,
+      </if>
+      <if test="lotteryStatus != null">
+        lottery_status,
+      </if>
+      <if test="lotteryDate != null">
+        lottery_date,
+      </if>
+      <if test="createDate != null">
+        create_date,
+      </if>
+      <if test="updateDate != null">
+        update_date,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="lotteryId != null">
+        #{lotteryId,jdbcType=INTEGER},
+      </if>
+      <if test="lotteryFullNo != null">
+        #{lotteryFullNo,jdbcType=VARCHAR},
+      </if>
+      <if test="lotteryNum != null">
+        #{lotteryNum,jdbcType=INTEGER},
+      </if>
+      <if test="lotteryFNo != null">
+        #{lotteryFNo,jdbcType=VARCHAR},
+      </if>
+      <if test="lotteryMNo != null">
+        #{lotteryMNo,jdbcType=VARCHAR},
+      </if>
+      <if test="lotteryBNo != null">
+        #{lotteryBNo,jdbcType=VARCHAR},
+      </if>
+      <if test="lotteryStatus != null">
+        #{lotteryStatus,jdbcType=INTEGER},
+      </if>
+      <if test="lotteryDate != null">
+        #{lotteryDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createDate != null">
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateDate != null">
+        #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lb.mobile.entity.lotteryInfoPo">
+    update t_lottery_info
+    <set>
+      <if test="lotteryId != null">
+        lottery_id = #{lotteryId,jdbcType=INTEGER},
+      </if>
+      <if test="lotteryFullNo != null">
+        lottery_full_no = #{lotteryFullNo,jdbcType=VARCHAR},
+      </if>
+      <if test="lotteryNum != null">
+        lottery_num = #{lotteryNum,jdbcType=INTEGER},
+      </if>
+      <if test="lotteryFNo != null">
+        lottery_f_no = #{lotteryFNo,jdbcType=VARCHAR},
+      </if>
+      <if test="lotteryMNo != null">
+        lottery_m_no = #{lotteryMNo,jdbcType=VARCHAR},
+      </if>
+      <if test="lotteryBNo != null">
+        lottery_b_no = #{lotteryBNo,jdbcType=VARCHAR},
+      </if>
+      <if test="lotteryStatus != null">
+        lottery_status = #{lotteryStatus,jdbcType=INTEGER},
+      </if>
+      <if test="lotteryDate != null">
+        lottery_date = #{lotteryDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createDate != null">
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateDate != null">
+        update_date = #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lb.mobile.entity.lotteryInfoPo">
+    update t_lottery_info
+    set lottery_id = #{lotteryId,jdbcType=INTEGER},
+      lottery_full_no = #{lotteryFullNo,jdbcType=VARCHAR},
+      lottery_num = #{lotteryNum,jdbcType=INTEGER},
+      lottery_f_no = #{lotteryFNo,jdbcType=VARCHAR},
+      lottery_m_no = #{lotteryMNo,jdbcType=VARCHAR},
+      lottery_b_no = #{lotteryBNo,jdbcType=VARCHAR},
+      lottery_status = #{lotteryStatus,jdbcType=INTEGER},
+      lottery_date = #{lotteryDate,jdbcType=TIMESTAMP},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      update_date = #{updateDate,jdbcType=TIMESTAMP},
+      remark = #{remark,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+    <select id="selectLotteryListByStatus" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from t_lottery_info
+        where 1=1
+        <if test="lotteryStatus != null">
+            and lottery_status = #{lotteryStatus,jdbcType=INTEGER}
+        </if>
+    </select>
+    <select id="selectUserLotteryByMap" parameterType="java.util.Map" resultType="com.lb.mobile.dto.response.UserLotteryDto">
+        SELECT
+        c.lottery_type lotteryType,
+        l.lottery_full_no lotteryFullNo,
+        l.lottery_num lotteryNum,
+        l.lottery_date lotteryDate
+        FROM
+        t_concern c
+        LEFT JOIN t_lottery_info l ON c.lottery_type = l.lottery_id
+        WHERE  1 = 1
+        <if test=" uid != null">
+            AND c.uid = #{uid,jdbcType=VARCHAR}
+        </if>
+        ORDER BY  l.lottery_date DESC
+        <if test="limit != null">
+            LIMIT  #{limit,jdbcType=INTEGER}
+        </if>
+    </select>
+    <select id="selectLotteryByMap" parameterType="java.util.Map" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from t_lottery_info
+        where 1=1
+        <if test="lotteryType != null">
+            and lottery_id = #{lotteryType,jdbcType=INTEGER}
+        </if>
+        <if test="lotteryStatus != null">
+            and lottery_status = #{lotteryStatus,jdbcType=INTEGER}
+        </if>
+        ORDER BY lottery_num DESC
+        <if test="limit != null">
+            LIMIT  #{limit,jdbcType=INTEGER}
+        </if>
+    </select>
+    <select id="selectEntityByMap" parameterType="java.util.Map" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from t_lottery_info
+        where 1=1
+        <if test="lotteryType != null">
+            and lottery_id = #{lotteryType,jdbcType=INTEGER}
+        </if>
+        <if test="lotteryStatus != null">
+            and lottery_status = #{lotteryStatus,jdbcType=INTEGER}
+        </if>
+        ORDER BY lottery_date DESC
+        <if test="limit != null">
+            LIMIT  #{limit,jdbcType=INTEGER}
+        </if>
+    </select>
+    <select id="selectLatestLotteryInfoList"  parameterType="java.util.Map" resultMap="BaseResultMap">
+        SELECT
+            <include refid="Base_Column_List" />
+        FROM (
+                SELECT
+                     <include refid="Base_Column_List" />
+                FROM t_lottery_info
+                 ORDER BY create_date DESC
+              ) t
+         GROUP  BY lottery_id DESC
+        <if test="limit != null">
+            LIMIT  #{limit,jdbcType=INTEGER}
+        </if>
+    </select>
+</mapper>
