@@ -1,0 +1,90 @@
+package com.lb.mobile.service.impl;
+
+import com.lb.mobile.comm.base.ResponseCode;
+import com.lb.mobile.comm.base.ResponseResult;
+import com.lb.mobile.comm.base.constant.Constant;
+import com.lb.mobile.comm.util.UuidUtil;
+import com.lb.mobile.dao.chartPoMapper;
+import com.lb.mobile.dao.concernPoMapper;
+import com.lb.mobile.dao.lotteryInfoPoMapper;
+import com.lb.mobile.entity.concernPo;
+import com.lb.mobile.service.LotteryService;
+import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.util.ObjectUtils;
+
+import java.util.Date;
+import java.util.Map;
+
+@Service
+public class LotteryServiceIpml implements LotteryService {
+
+    private static final Logger log = LoggerFactory.getLogger(LotteryServiceIpml.class);
+
+    @Autowired
+    lotteryInfoPoMapper lotteryInfoPoMapper;
+    @Autowired
+    chartPoMapper chartPoMapper;
+    @Autowired
+    concernPoMapper concernPoMapper;
+    @Override
+    public ResponseResult txLatestLottery(Map dto) {
+       if (! dto.containsKey("limit")){
+           dto.put( "limit",5);
+       }
+        return ResponseResult.success(lotteryInfoPoMapper.selectLatestLotteryInfoList(dto));
+    }
+
+    @Override
+    public ResponseResult txLotteryChart(Map dto) {
+        if(ObjectUtils.isEmpty(dto.get("lotteryType"))){
+            return ResponseResult.err(ResponseCode.FAIL.code,"missing param lotteryType");
+        }
+        if (! dto.containsKey("limit")){
+            dto.put( "limit",30);
+        }
+        return ResponseResult.success(chartPoMapper.selectLotteryChartList(dto));
+    }
+
+    @Override
+    public ResponseResult txAttentionLottery(concernPo concernPo) {
+        String uid = concernPo.getUid();
+        Integer lotteryType = concernPo.getLotteryType();
+        if(StringUtils.isBlank(uid)){
+            return  ResponseResult.err(ResponseCode.FAIL.code,"missing param uid");
+        }
+        if (ObjectUtils.isEmpty(lotteryType)){
+            return  ResponseResult.err(ResponseCode.FAIL.code,"missing param lotteryType");
+        }
+        concernPo.setId(UuidUtil.get32UUID());
+        concernPo.setIsConcern(Constant.IsConcern.source_isconcern_yes);
+        concernPo.setCreateDate(new Date());
+        return ResponseResult.success(concernPoMapper.insertSelective(concernPo));
+    }
+
+    @Override
+    public ResponseResult txAttentionLotteryList(Map dto) {
+        Object uid = dto.get("uid");
+        if(ObjectUtils.isEmpty(uid)){
+            return  ResponseResult.err(ResponseCode.FAIL.code,"missing param uid");
+        }
+        dto.put("isConcern",Constant.IsConcern.source_isconcern_yes);
+        return ResponseResult.success(concernPoMapper.selectByMap(dto));
+    }
+
+    @Override
+    public ResponseResult txUnsubscribeLottery(String id) {
+        if(StringUtils.isBlank(id)){
+            return  ResponseResult.err(ResponseCode.FAIL.code,"missing param id");
+        }
+        concernPo concernPo = concernPoMapper.selectByPrimaryKey(id);
+        if(ObjectUtils.isEmpty(concernPo)){
+            return  ResponseResult.err(ResponseCode.FAIL.code,"missing source concernPo");
+        }
+        concernPo.setIsConcern(Constant.IsConcern.source_isconcern_no);
+        return ResponseResult.success(concernPoMapper.updateByPrimaryKeySelective(concernPo));
+    }
+}

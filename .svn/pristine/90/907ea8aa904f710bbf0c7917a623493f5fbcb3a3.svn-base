@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lb.mobile.dao.lotteryPoMapper">
+  <resultMap id="BaseResultMap" type="com.lb.mobile.entity.lotteryPo">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="lottery_name" jdbcType="VARCHAR" property="lotteryName" />
+    <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
+    <result column="update_date" jdbcType="TIMESTAMP" property="updateDate" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.lb.mobile.entity.lotteryPo">
+    <result column="lottery_referral" jdbcType="LONGVARCHAR" property="lotteryReferral" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, lottery_name, create_date, update_date, remark
+  </sql>
+  <sql id="Blob_Column_List">
+    lottery_referral
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from t_lottery
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from t_lottery
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.lb.mobile.entity.lotteryPo" useGeneratedKeys="true">
+    insert into t_lottery (lottery_name, create_date, update_date, 
+      remark, lottery_referral)
+    values (#{lotteryName,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP}, #{updateDate,jdbcType=TIMESTAMP}, 
+      #{remark,jdbcType=VARCHAR}, #{lotteryReferral,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.lb.mobile.entity.lotteryPo" useGeneratedKeys="true">
+    insert into t_lottery
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="lotteryName != null">
+        lottery_name,
+      </if>
+      <if test="createDate != null">
+        create_date,
+      </if>
+      <if test="updateDate != null">
+        update_date,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+      <if test="lotteryReferral != null">
+        lottery_referral,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="lotteryName != null">
+        #{lotteryName,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null">
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateDate != null">
+        #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="lotteryReferral != null">
+        #{lotteryReferral,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lb.mobile.entity.lotteryPo">
+    update t_lottery
+    <set>
+      <if test="lotteryName != null">
+        lottery_name = #{lotteryName,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null">
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateDate != null">
+        update_date = #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="lotteryReferral != null">
+        lottery_referral = #{lotteryReferral,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.lb.mobile.entity.lotteryPo">
+    update t_lottery
+    set lottery_name = #{lotteryName,jdbcType=VARCHAR},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      update_date = #{updateDate,jdbcType=TIMESTAMP},
+      remark = #{remark,jdbcType=VARCHAR},
+      lottery_referral = #{lotteryReferral,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lb.mobile.entity.lotteryPo">
+    update t_lottery
+    set lottery_name = #{lotteryName,jdbcType=VARCHAR},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      update_date = #{updateDate,jdbcType=TIMESTAMP},
+      remark = #{remark,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

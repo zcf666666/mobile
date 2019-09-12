@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lb.mobile.dao.feedbackPoMapper">
+  <resultMap id="BaseResultMap" type="com.lb.mobile.entity.feedbackPo">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="uid" jdbcType="VARCHAR" property="uid" />
+    <result column="comment" jdbcType="VARCHAR" property="comment" />
+    <result column="contact" jdbcType="VARCHAR" property="contact" />
+    <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, uid, comment, contact, create_date, remark
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_feedback
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from t_feedback
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.lb.mobile.entity.feedbackPo" useGeneratedKeys="true">
+    insert into t_feedback (uid, comment, contact, 
+      create_date, remark)
+    values (#{uid,jdbcType=VARCHAR}, #{comment,jdbcType=VARCHAR}, #{contact,jdbcType=VARCHAR}, 
+      #{createDate,jdbcType=TIMESTAMP}, #{remark,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.lb.mobile.entity.feedbackPo" useGeneratedKeys="true">
+    insert into t_feedback
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="uid != null">
+        uid,
+      </if>
+      <if test="comment != null">
+        comment,
+      </if>
+      <if test="contact != null">
+        contact,
+      </if>
+      <if test="createDate != null">
+        create_date,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="uid != null">
+        #{uid,jdbcType=VARCHAR},
+      </if>
+      <if test="comment != null">
+        #{comment,jdbcType=VARCHAR},
+      </if>
+      <if test="contact != null">
+        #{contact,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null">
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lb.mobile.entity.feedbackPo">
+    update t_feedback
+    <set>
+      <if test="uid != null">
+        uid = #{uid,jdbcType=VARCHAR},
+      </if>
+      <if test="comment != null">
+        comment = #{comment,jdbcType=VARCHAR},
+      </if>
+      <if test="contact != null">
+        contact = #{contact,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null">
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lb.mobile.entity.feedbackPo">
+    update t_feedback
+    set uid = #{uid,jdbcType=VARCHAR},
+      comment = #{comment,jdbcType=VARCHAR},
+      contact = #{contact,jdbcType=VARCHAR},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      remark = #{remark,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

@@ -1,0 +1,28 @@
+package com.lb.mobile.service;
+
+import com.lb.mobile.comm.base.ResponseResult;
+import com.lb.mobile.dto.requst.AttentionProfessorDto;
+import com.lb.mobile.dto.requst.SchemePublishDto;
+import com.lb.mobile.dto.requst.SchemeQueryDto;
+import com.lb.mobile.entity.commentPo;
+import com.lb.mobile.entity.favoritePo;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.text.ParseException;
+import java.util.Map;
+
+public interface ProfessorService {
+    ResponseResult selectHotProfessor(String uid,String limit);
+    ResponseResult attentionProfessor(AttentionProfessorDto dto);
+    ResponseResult professorSchemes(SchemeQueryDto SchemeQueryDto);
+    ResponseResult professorInfo(Map<String,String> dto);
+    ResponseResult historySchemes(Map<String,Object> dto);
+    ResponseResult schemesDetail(Map<String,Object> dto);
+    ResponseResult schemesComment(commentPo dto);
+    ResponseResult isAttention(Map<String,Object> dto);
+    ResponseResult isEnshrine(favoritePo dto);
+    ResponseResult enshrineDelete(favoritePo dto);
+    ResponseResult schemePeriods(Map<String,Object> dto);
+    ResponseResult schemePicUpload(MultipartFile file, String uid, String fileName, String fileExt, int fileType,  int picNo,String fileId,String fileUrl);
+    ResponseResult schemePublish (SchemePublishDto dto) throws ParseException, InterruptedException;
+}

@@ -1,0 +1,670 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="114bc7f5-0e1a-499b-be73-134e484fa118" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/lb/mobile/controller/HotInformationController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/lb/mobile/controller/HotInformationController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/lb/mobile/service/impl/HotInformationServiceIpml.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/lb/mobile/service/impl/HotInformationServiceIpml.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/mapper/commentPoMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/mapper/commentPoMapper.xml" afterDir="false" />
+    </list>
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="CodeInsightWorkspaceSettings">
+    <option name="optimizeImportsOnTheFly" value="true" />
+  </component>
+  <component name="CoverageViewManager">
+    <option name="myElementSize" value="288" />
+  </component>
+  <component name="DatabaseView">
+    <option name="SHOW_INTERMEDIATE" value="true" />
+    <option name="GROUP_DATA_SOURCES" value="true" />
+    <option name="GROUP_SCHEMA" value="true" />
+    <option name="GROUP_CONTENTS" value="false" />
+    <option name="SORT_POSITIONED" value="false" />
+    <option name="SHOW_EMPTY_GROUPS" value="false" />
+    <option name="AUTO_SCROLL_FROM_SOURCE" value="false" />
+    <option name="HIDDEN_KINDS">
+      <set />
+    </option>
+    <expand />
+    <select />
+  </component>
+  <component name="FavoritesManager">
+    <favorites_list name="mobile" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="FxmlFile" />
+        <option value="spring-beans.schema" />
+        <option value="AnnotationType" />
+        <option value="Enum" />
+        <option value="Interface" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/src/main/java/com/lb/mobile/service/impl/UserServiceIpml.java" root0="SKIP_INSPECTION" />
+    <setting file="file://$PROJECT_DIR$/src/main/java/com/lb/mobile/comm/base/constant/Constant.java" root0="SKIP_INSPECTION" />
+    <setting file="file://$PROJECT_DIR$/src/main/resources/mapper/professorPoMapper.xml" root0="SKIP_INSPECTION" />
+    <setting file="file://$PROJECT_DIR$/src/main/resources/application-prod.properties" root0="SKIP_INSPECTION" />
+    <setting file="file://$PROJECT_DIR$/src/main/java/com/lb/mobile/service/impl/SchemeServiceIpml.java" root0="SKIP_INSPECTION" />
+    <setting file="file://$PROJECT_DIR$/src/main/java/com/lb/mobile/controller/TestController.java" root0="SKIP_INSPECTION" />
+    <setting file="file://$PROJECT_DIR$/src/main/java/com/lb/mobile/service/impl/LotteryServiceIpml.java" root0="SKIP_INSPECTION" />
+    <setting file="file://$PROJECT_DIR$/src/main/resources/generator/generatorConfig.xml" root0="SKIP_INSPECTION" />
+    <setting file="file://$PROJECT_DIR$/src/main/resources/mapper/commentPoMapper.xml" root0="SKIP_INSPECTION" />
+    <setting file="file://$PROJECT_DIR$/src/main/resources/mapper/lotteryInfoPoMapper.xml" root0="SKIP_INSPECTION" />
+    <setting file="file://$PROJECT_DIR$/src/main/resources/mapper/postInfoPoMapper.xml" root0="SKIP_INSPECTION" />
+    <setting file="file://$PROJECT_DIR$/src/main/resources/mapper/filePoMapper.xml" root0="SKIP_INSPECTION" />
+    <setting file="file://$PROJECT_DIR$/src/main/java/com/lb/mobile/dao/professorPoMapper.java" root0="SKIP_INSPECTION" />
+    <setting file="file://$PROJECT_DIR$/src/main/java/com/lb/mobile/comm/util/DateUtil.java" root0="SKIP_INSPECTION" />
+    <setting file="file://$PROJECT_DIR$/src/main/java/com/lb/mobile/comm/util/JsonUtil.java" root0="SKIP_INSPECTION" />
+    <setting file="file://$PROJECT_DIR$/pom.xml" root0="SKIP_INSPECTION" />
+    <setting file="file://$PROJECT_DIR$/src/main/java/com/lb/mobile/controller/ProfessorController.java" root0="SKIP_INSPECTION" />
+    <setting file="file://$PROJECT_DIR$/src/main/java/com/lb/mobile/service/impl/HeadLineServiceIpml.java" root0="SKIP_INSPECTION" />
+    <setting file="file://$PROJECT_DIR$/src/main/java/com/lb/mobile/controller/LotteryController.java" root0="SKIP_INSPECTION" />
+    <setting file="file://$PROJECT_DIR$/src/main/java/com/lb/mobile/service/impl/ProfessorServiceIpml.java" root0="SKIP_INSPECTION" />
+    <setting file="file://$PROJECT_DIR$/src/main/java/com/lb/mobile/task/service/JobServiceImpl.java" root0="SKIP_INSPECTION" />
+    <setting file="file://$PROJECT_DIR$/src/main/java/com/lb/mobile/MobileApplication.java" root0="SKIP_INSPECTION" />
+    <setting file="file://$PROJECT_DIR$/src/main/java/com/lb/mobile/task/JobTask.java" root0="SKIP_INSPECTION" />
+    <setting file="file://$PROJECT_DIR$/src/main/resources/mapper/schemePoMapper.xml" root0="SKIP_INSPECTION" />
+    <setting file="file://$PROJECT_DIR$/src/main/java/com/lb/mobile/service/impl/HotInformationServiceIpml.java" root0="SKIP_INSPECTION" />
+    <setting file="file://$PROJECT_DIR$/src/main/java/com/lb/mobile/comm/aop/RequestLimit.java" root0="SKIP_INSPECTION" />
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="mavenHome" value="D:/lb/software/apache-maven-3.3.3-bin/apache-maven-3.3.3" />
+        <option name="userSettingsFile" value="D:\lb\software\apache-maven-3.3.3-bin\apache-maven-3.3.3\conf\settings.xml" />
+      </MavenGeneralSettings>
+    </option>
+    <option name="importingSettings">
+      <MavenImportingSettings>
+        <option name="importAutomatically" value="true" />
+        <option name="jdkForImporter" value="#JAVA_HOME" />
+        <option name="vmOptionsForImporter" value="-Xmx768m" />
+      </MavenImportingSettings>
+    </option>
+  </component>
+  <component name="ProjectId" id="1PRYUs8dQrMnljtNNkKxfFLM6qk" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RequestMappingsPanelOrder0" value="0" />
+    <property name="RequestMappingsPanelOrder1" value="1" />
+    <property name="RequestMappingsPanelWidth0" value="75" />
+    <property name="RequestMappingsPanelWidth1" value="75" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/main/java/com/lb/mobile/dao/favoritePoMapper.java" />
+    <property name="nodejs_package_manager_path" value="npm" />
+    <property name="project.structure.last.edited" value="Project" />
+    <property name="project.structure.proportion" value="0.15" />
+    <property name="project.structure.side.proportion" value="0.0" />
+    <property name="settings.editor.selected.configurable" value="MavenSettings" />
+    <property name="two.files.diff.last.used.file" value="$PROJECT_DIR$/src/main/java/com/lb/mobile/dao/favoritePoMapper.java" />
+  </component>
+  <component name="RecentsManager">
+    <key name="OPEN_URL_DIALOG">
+      <recent name="https://gitee.com/wangxuc/springboot_mybatis_applet.git" />
+    </key>
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="com.lb.mobile" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\Workspaces\mobile\src\main\resources\mapper" />
+      <recent name="D:\Workspaces\mobile\src\main\resources" />
+      <recent name="D:\Workspaces\mobile\src\main\java\com\lb\mobile\dao" />
+      <recent name="D:\Workspaces\mobile\src\main\java\com\lb\mobile\mapper" />
+      <recent name="D:\Workspaces\mobile\src\main\java\com\lb\mobile" />
+    </key>
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="com.lb.mobile.entity.lottery" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\Workspaces\mobile\src\main\resources\log" />
+    </key>
+  </component>
+  <component name="RunAnythingCache">
+    <option name="myCommands">
+      <command value="mvn compile" />
+    </option>
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="RunManager" selected="Spring Boot.MobileApplication">
+    <configuration name="DateUtil" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.lb.mobile.comm.util.DateUtil" />
+      <module name="mobile" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.lb.mobile.comm.util.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="LotteryController" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.lb.mobile.controller.LotteryController" />
+      <module name="mobile" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.lb.mobile.controller.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ProfessorController" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.lb.mobile.controller.ProfessorController" />
+      <module name="mobile" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.lb.mobile.controller.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ProfessorSchemeDto" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.lb.mobile.dto.response.ProfessorSchemeDto" />
+      <module name="mobile" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.lb.mobile.dto.response.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="SchemeServiceIpml" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.lb.mobile.service.impl.SchemeServiceIpml" />
+      <module name="mobile" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.lb.mobile.service.impl.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="MobileApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <module name="mobile" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.lb.mobile.MobileApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.SchemeServiceIpml" />
+        <item itemvalue="Application.LotteryController" />
+        <item itemvalue="Application.ProfessorController" />
+        <item itemvalue="Application.DateUtil" />
+        <item itemvalue="Application.ProfessorSchemeDto" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SvnConfiguration" cleanupOnStartRun="true">
+    <configuration>C:\Users\NING MEI\AppData\Roaming\Subversion</configuration>
+    <supportedVersion>125</supportedVersion>
+  </component>
+  <component name="SvnFileUrlMappingImpl">
+    <option name="myMappingRoots">
+      <list>
+        <SvnCopyRootSimple>
+          <option name="myVcsRoot" value="D:\Workspaces\project\mobile" />
+          <option name="myCopyRoot" value="D:\Workspaces\project\mobile" />
+        </SvnCopyRootSimple>
+      </list>
+    </option>
+    <option name="myMoreRealMappingRoots">
+      <list>
+        <SvnCopyRootSimple>
+          <option name="myVcsRoot" value="D:\Workspaces\project\mobile" />
+          <option name="myCopyRoot" value="D:\Workspaces\project\mobile" />
+        </SvnCopyRootSimple>
+      </list>
+    </option>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="114bc7f5-0e1a-499b-be73-134e484fa118" name="Default Changelist" comment="" />
+      <created>1565838394754</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1565838394754</updated>
+      <workItem from="1565838397594" duration="10238000" />
+      <workItem from="1565853335824" duration="3446000" />
+      <workItem from="1565856798456" duration="1792000" />
+      <workItem from="1565858607944" duration="5491000" />
+      <workItem from="1565917220725" duration="9371000" />
+      <workItem from="1565926653437" duration="25456000" />
+      <workItem from="1566176285923" duration="25435000" />
+      <workItem from="1566263967106" duration="11114000" />
+      <workItem from="1566348846848" duration="2996000" />
+      <workItem from="1566435404324" duration="1204000" />
+      <workItem from="1566522118020" duration="5576000" />
+      <workItem from="1566556111638" duration="220000" />
+      <workItem from="1566781386142" duration="3729000" />
+      <workItem from="1566867588714" duration="1314000" />
+      <workItem from="1566954198620" duration="16895000" />
+      <workItem from="1566984384769" duration="213000" />
+      <workItem from="1566984633891" duration="191000" />
+      <workItem from="1566985063261" duration="1879000" />
+      <workItem from="1567040549274" duration="28994000" />
+      <workItem from="1567127101188" duration="31628000" />
+      <workItem from="1567386197665" duration="34073000" />
+      <workItem from="1567472668453" duration="28586000" />
+      <workItem from="1567559051690" duration="28072000" />
+      <workItem from="1567645263325" duration="29346000" />
+      <workItem from="1567731880160" duration="35089000" />
+      <workItem from="1567771902061" duration="616000" />
+      <workItem from="1567991323074" duration="28273000" />
+      <workItem from="1568077417541" duration="31731000" />
+      <workItem from="1568164393292" duration="16917000" />
+    </task>
+    <task id="LOCAL-00055">
+      <created>1567144036189</created>
+      <option name="number" value="00055" />
+      <option name="presentableId" value="LOCAL-00055" />
+      <option name="project" value="LOCAL" />
+      <updated>1567144036189</updated>
+    </task>
+    <task id="LOCAL-00056">
+      <created>1567147610699</created>
+      <option name="number" value="00056" />
+      <option name="presentableId" value="LOCAL-00056" />
+      <option name="project" value="LOCAL" />
+      <updated>1567147610699</updated>
+    </task>
+    <task id="LOCAL-00057">
+      <created>1567148460751</created>
+      <option name="number" value="00057" />
+      <option name="presentableId" value="LOCAL-00057" />
+      <option name="project" value="LOCAL" />
+      <updated>1567148460751</updated>
+    </task>
+    <task id="LOCAL-00058">
+      <created>1567153996729</created>
+      <option name="number" value="00058" />
+      <option name="presentableId" value="LOCAL-00058" />
+      <option name="project" value="LOCAL" />
+      <updated>1567153996729</updated>
+    </task>
+    <task id="LOCAL-00059">
+      <created>1567157064107</created>
+      <option name="number" value="00059" />
+      <option name="presentableId" value="LOCAL-00059" />
+      <option name="project" value="LOCAL" />
+      <updated>1567157064107</updated>
+    </task>
+    <task id="LOCAL-00060">
+      <created>1567157072715</created>
+      <option name="number" value="00060" />
+      <option name="presentableId" value="LOCAL-00060" />
+      <option name="project" value="LOCAL" />
+      <updated>1567157072715</updated>
+    </task>
+    <task id="LOCAL-00061">
+      <created>1567157079360</created>
+      <option name="number" value="00061" />
+      <option name="presentableId" value="LOCAL-00061" />
+      <option name="project" value="LOCAL" />
+      <updated>1567157079360</updated>
+    </task>
+    <task id="LOCAL-00062">
+      <created>1567157086921</created>
+      <option name="number" value="00062" />
+      <option name="presentableId" value="LOCAL-00062" />
+      <option name="project" value="LOCAL" />
+      <updated>1567157086921</updated>
+    </task>
+    <task id="LOCAL-00063">
+      <created>1567157091999</created>
+      <option name="number" value="00063" />
+      <option name="presentableId" value="LOCAL-00063" />
+      <option name="project" value="LOCAL" />
+      <updated>1567157091999</updated>
+    </task>
+    <task id="LOCAL-00064" summary="update">
+      <created>1567157367284</created>
+      <option name="number" value="00064" />
+      <option name="presentableId" value="LOCAL-00064" />
+      <option name="project" value="LOCAL" />
+      <updated>1567157367284</updated>
+    </task>
+    <task id="LOCAL-00065" summary="update">
+      <created>1567160166130</created>
+      <option name="number" value="00065" />
+      <option name="presentableId" value="LOCAL-00065" />
+      <option name="project" value="LOCAL" />
+      <updated>1567160166130</updated>
+    </task>
+    <task id="LOCAL-00066" summary="update">
+      <created>1567386766327</created>
+      <option name="number" value="00066" />
+      <option name="presentableId" value="LOCAL-00066" />
+      <option name="project" value="LOCAL" />
+      <updated>1567386766327</updated>
+    </task>
+    <task id="LOCAL-00067" summary="update">
+      <created>1567387290178</created>
+      <option name="number" value="00067" />
+      <option name="presentableId" value="LOCAL-00067" />
+      <option name="project" value="LOCAL" />
+      <updated>1567387290178</updated>
+    </task>
+    <task id="LOCAL-00068" summary="update">
+      <created>1567387556272</created>
+      <option name="number" value="00068" />
+      <option name="presentableId" value="LOCAL-00068" />
+      <option name="project" value="LOCAL" />
+      <updated>1567387556272</updated>
+    </task>
+    <task id="LOCAL-00069" summary="update">
+      <created>1567418158883</created>
+      <option name="number" value="00069" />
+      <option name="presentableId" value="LOCAL-00069" />
+      <option name="project" value="LOCAL" />
+      <updated>1567418158883</updated>
+    </task>
+    <task id="LOCAL-00070" summary="update">
+      <created>1567418172375</created>
+      <option name="number" value="00070" />
+      <option name="presentableId" value="LOCAL-00070" />
+      <option name="project" value="LOCAL" />
+      <updated>1567418172375</updated>
+    </task>
+    <task id="LOCAL-00071" summary="update">
+      <created>1567418181896</created>
+      <option name="number" value="00071" />
+      <option name="presentableId" value="LOCAL-00071" />
+      <option name="project" value="LOCAL" />
+      <updated>1567418181896</updated>
+    </task>
+    <task id="LOCAL-00072" summary="update">
+      <created>1567418688171</created>
+      <option name="number" value="00072" />
+      <option name="presentableId" value="LOCAL-00072" />
+      <option name="project" value="LOCAL" />
+      <updated>1567418688171</updated>
+    </task>
+    <task id="LOCAL-00073" summary="update">
+      <created>1567418705499</created>
+      <option name="number" value="00073" />
+      <option name="presentableId" value="LOCAL-00073" />
+      <option name="project" value="LOCAL" />
+      <updated>1567418705499</updated>
+    </task>
+    <task id="LOCAL-00074" summary="update">
+      <created>1567478615288</created>
+      <option name="number" value="00074" />
+      <option name="presentableId" value="LOCAL-00074" />
+      <option name="project" value="LOCAL" />
+      <updated>1567478615289</updated>
+    </task>
+    <task id="LOCAL-00075" summary="update">
+      <created>1567506596758</created>
+      <option name="number" value="00075" />
+      <option name="presentableId" value="LOCAL-00075" />
+      <option name="project" value="LOCAL" />
+      <updated>1567506596758</updated>
+    </task>
+    <task id="LOCAL-00076" summary="update">
+      <created>1567591121335</created>
+      <option name="number" value="00076" />
+      <option name="presentableId" value="LOCAL-00076" />
+      <option name="project" value="LOCAL" />
+      <updated>1567591121335</updated>
+    </task>
+    <task id="LOCAL-00077" summary="update">
+      <created>1567591181296</created>
+      <option name="number" value="00077" />
+      <option name="presentableId" value="LOCAL-00077" />
+      <option name="project" value="LOCAL" />
+      <updated>1567591181296</updated>
+    </task>
+    <task id="LOCAL-00078" summary="update">
+      <created>1567672196459</created>
+      <option name="number" value="00078" />
+      <option name="presentableId" value="LOCAL-00078" />
+      <option name="project" value="LOCAL" />
+      <updated>1567672196460</updated>
+    </task>
+    <task id="LOCAL-00079" summary="update">
+      <created>1567677842531</created>
+      <option name="number" value="00079" />
+      <option name="presentableId" value="LOCAL-00079" />
+      <option name="project" value="LOCAL" />
+      <updated>1567677842531</updated>
+    </task>
+    <task id="LOCAL-00080" summary="update">
+      <created>1567738370465</created>
+      <option name="number" value="00080" />
+      <option name="presentableId" value="LOCAL-00080" />
+      <option name="project" value="LOCAL" />
+      <updated>1567738370465</updated>
+    </task>
+    <task id="LOCAL-00081" summary="update">
+      <created>1567740420209</created>
+      <option name="number" value="00081" />
+      <option name="presentableId" value="LOCAL-00081" />
+      <option name="project" value="LOCAL" />
+      <updated>1567740420209</updated>
+    </task>
+    <task id="LOCAL-00082" summary="update">
+      <created>1567748477765</created>
+      <option name="number" value="00082" />
+      <option name="presentableId" value="LOCAL-00082" />
+      <option name="project" value="LOCAL" />
+      <updated>1567748477765</updated>
+    </task>
+    <task id="LOCAL-00083" summary="update">
+      <created>1567749784628</created>
+      <option name="number" value="00083" />
+      <option name="presentableId" value="LOCAL-00083" />
+      <option name="project" value="LOCAL" />
+      <updated>1567749784628</updated>
+    </task>
+    <task id="LOCAL-00084" summary="update">
+      <created>1567770770095</created>
+      <option name="number" value="00084" />
+      <option name="presentableId" value="LOCAL-00084" />
+      <option name="project" value="LOCAL" />
+      <updated>1567770770096</updated>
+    </task>
+    <task id="LOCAL-00085" summary="update">
+      <created>1567771747031</created>
+      <option name="number" value="00085" />
+      <option name="presentableId" value="LOCAL-00085" />
+      <option name="project" value="LOCAL" />
+      <updated>1567771747031</updated>
+    </task>
+    <task id="LOCAL-00086" summary="update">
+      <created>1568005215865</created>
+      <option name="number" value="00086" />
+      <option name="presentableId" value="LOCAL-00086" />
+      <option name="project" value="LOCAL" />
+      <updated>1568005215866</updated>
+    </task>
+    <task id="LOCAL-00087" summary="update">
+      <created>1568017868370</created>
+      <option name="number" value="00087" />
+      <option name="presentableId" value="LOCAL-00087" />
+      <option name="project" value="LOCAL" />
+      <updated>1568017868370</updated>
+    </task>
+    <task id="LOCAL-00088" summary="update">
+      <created>1568025063425</created>
+      <option name="number" value="00088" />
+      <option name="presentableId" value="LOCAL-00088" />
+      <option name="project" value="LOCAL" />
+      <updated>1568025063425</updated>
+    </task>
+    <task id="LOCAL-00089" summary="update">
+      <created>1568078133352</created>
+      <option name="number" value="00089" />
+      <option name="presentableId" value="LOCAL-00089" />
+      <option name="project" value="LOCAL" />
+      <updated>1568078133353</updated>
+    </task>
+    <task id="LOCAL-00090" summary="update">
+      <created>1568085588810</created>
+      <option name="number" value="00090" />
+      <option name="presentableId" value="LOCAL-00090" />
+      <option name="project" value="LOCAL" />
+      <updated>1568085588810</updated>
+    </task>
+    <task id="LOCAL-00091" summary="update">
+      <created>1568088023408</created>
+      <option name="number" value="00091" />
+      <option name="presentableId" value="LOCAL-00091" />
+      <option name="project" value="LOCAL" />
+      <updated>1568088023408</updated>
+    </task>
+    <task id="LOCAL-00092" summary="update">
+      <created>1568092704981</created>
+      <option name="number" value="00092" />
+      <option name="presentableId" value="LOCAL-00092" />
+      <option name="project" value="LOCAL" />
+      <updated>1568092704981</updated>
+    </task>
+    <task id="LOCAL-00093" summary="update">
+      <created>1568094880019</created>
+      <option name="number" value="00093" />
+      <option name="presentableId" value="LOCAL-00093" />
+      <option name="project" value="LOCAL" />
+      <updated>1568094880019</updated>
+    </task>
+    <task id="LOCAL-00094" summary="update">
+      <created>1568095188247</created>
+      <option name="number" value="00094" />
+      <option name="presentableId" value="LOCAL-00094" />
+      <option name="project" value="LOCAL" />
+      <updated>1568095188247</updated>
+    </task>
+    <task id="LOCAL-00095" summary="update">
+      <created>1568095368975</created>
+      <option name="number" value="00095" />
+      <option name="presentableId" value="LOCAL-00095" />
+      <option name="project" value="LOCAL" />
+      <updated>1568095368975</updated>
+    </task>
+    <task id="LOCAL-00096" summary="update">
+      <created>1568095550820</created>
+      <option name="number" value="00096" />
+      <option name="presentableId" value="LOCAL-00096" />
+      <option name="project" value="LOCAL" />
+      <updated>1568095550820</updated>
+    </task>
+    <task id="LOCAL-00097" summary="update">
+      <created>1568100065113</created>
+      <option name="number" value="00097" />
+      <option name="presentableId" value="LOCAL-00097" />
+      <option name="project" value="LOCAL" />
+      <updated>1568100065113</updated>
+    </task>
+    <task id="LOCAL-00098" summary="update">
+      <created>1568108394105</created>
+      <option name="number" value="00098" />
+      <option name="presentableId" value="LOCAL-00098" />
+      <option name="project" value="LOCAL" />
+      <updated>1568108394105</updated>
+    </task>
+    <task id="LOCAL-00099" summary="update">
+      <created>1568108596651</created>
+      <option name="number" value="00099" />
+      <option name="presentableId" value="LOCAL-00099" />
+      <option name="project" value="LOCAL" />
+      <updated>1568108596651</updated>
+    </task>
+    <task id="LOCAL-00100" summary="update">
+      <created>1568110885488</created>
+      <option name="number" value="00100" />
+      <option name="presentableId" value="LOCAL-00100" />
+      <option name="project" value="LOCAL" />
+      <updated>1568110885488</updated>
+    </task>
+    <task id="LOCAL-00101" summary="update">
+      <created>1568174188205</created>
+      <option name="number" value="00101" />
+      <option name="presentableId" value="LOCAL-00101" />
+      <option name="project" value="LOCAL" />
+      <updated>1568174188205</updated>
+    </task>
+    <task id="LOCAL-00102" summary="update">
+      <created>1568176214526</created>
+      <option name="number" value="00102" />
+      <option name="presentableId" value="LOCAL-00102" />
+      <option name="project" value="LOCAL" />
+      <updated>1568176214526</updated>
+    </task>
+    <task id="LOCAL-00103" summary="update">
+      <created>1568185287305</created>
+      <option name="number" value="00103" />
+      <option name="presentableId" value="LOCAL-00103" />
+      <option name="project" value="LOCAL" />
+      <updated>1568185287305</updated>
+    </task>
+    <option name="localTasksCounter" value="104" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="update" />
+    <option name="LAST_COMMIT_MESSAGE" value="update" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/lb/mobile/controller/ProfessorController.java</url>
+          <line>86</line>
+          <option name="timeStamp" value="9" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/lb/mobile/service/impl/ProfessorServiceIpml.java</url>
+          <line>444</line>
+          <option name="timeStamp" value="12" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+    <watches-manager>
+      <configuration name="SpringBootApplicationConfigurationType">
+        <watch expression="schemePoMapper" language="JAVA" />
+      </configuration>
+    </watches-manager>
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/mobile$MobileApplication.ic" NAME="MobileApplication Coverage Results" MODIFIED="1565939620693" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+  </component>
+</project>

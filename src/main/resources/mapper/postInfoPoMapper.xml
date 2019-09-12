@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lb.mobile.dao.postInfoPoMapper">
+  <resultMap id="BaseResultMap" type="com.lb.mobile.entity.postInfoPo">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="uid" jdbcType="VARCHAR" property="uid" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="type" jdbcType="INTEGER" property="type" />
+    <result column="lottery_type" jdbcType="INTEGER" property="lotteryType" />
+    <result column="is_enable" jdbcType="INTEGER" property="isEnable" />
+    <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
+    <result column="update_date" jdbcType="TIMESTAMP" property="updateDate" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.lb.mobile.entity.postInfoPo">
+    <result column="comment" jdbcType="LONGVARCHAR" property="comment" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, uid, name, title, type, lottery_type, is_enable, create_date, update_date, remark
+  </sql>
+  <sql id="Blob_Column_List">
+    comment
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from t_post_info
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from t_post_info
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.lb.mobile.entity.postInfoPo" useGeneratedKeys="true">
+    insert into t_post_info (uid, name, title, 
+      type, lottery_type, is_enable, 
+      create_date, update_date, remark, 
+      comment)
+    values (#{uid,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, 
+      #{type,jdbcType=INTEGER}, #{lotteryType,jdbcType=INTEGER}, #{isEnable,jdbcType=INTEGER}, 
+      #{createDate,jdbcType=TIMESTAMP}, #{updateDate,jdbcType=TIMESTAMP}, #{remark,jdbcType=VARCHAR}, 
+      #{comment,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.lb.mobile.entity.postInfoPo" useGeneratedKeys="true">
+    insert into t_post_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="uid != null">
+        uid,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="title != null">
+        title,
+      </if>
+      <if test="type != null">
+        type,
+      </if>
+      <if test="lotteryType != null">
+        lottery_type,
+      </if>
+      <if test="isEnable != null">
+        is_enable,
+      </if>
+      <if test="createDate != null">
+        create_date,
+      </if>
+      <if test="updateDate != null">
+        update_date,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+      <if test="comment != null">
+        comment,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="uid != null">
+        #{uid,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null">
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=INTEGER},
+      </if>
+      <if test="lotteryType != null">
+        #{lotteryType,jdbcType=INTEGER},
+      </if>
+      <if test="isEnable != null">
+        #{isEnable,jdbcType=INTEGER},
+      </if>
+      <if test="createDate != null">
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateDate != null">
+        #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="comment != null">
+        #{comment,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lb.mobile.entity.postInfoPo">
+    update t_post_info
+    <set>
+      <if test="uid != null">
+        uid = #{uid,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null">
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        type = #{type,jdbcType=INTEGER},
+      </if>
+      <if test="lotteryType != null">
+        lottery_type = #{lotteryType,jdbcType=INTEGER},
+      </if>
+      <if test="isEnable != null">
+        is_enable = #{isEnable,jdbcType=INTEGER},
+      </if>
+      <if test="createDate != null">
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateDate != null">
+        update_date = #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="comment != null">
+        comment = #{comment,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.lb.mobile.entity.postInfoPo">
+    update t_post_info
+    set uid = #{uid,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      title = #{title,jdbcType=VARCHAR},
+      type = #{type,jdbcType=INTEGER},
+      lottery_type = #{lotteryType,jdbcType=INTEGER},
+      is_enable = #{isEnable,jdbcType=INTEGER},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      update_date = #{updateDate,jdbcType=TIMESTAMP},
+      remark = #{remark,jdbcType=VARCHAR},
+      comment = #{comment,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lb.mobile.entity.postInfoPo">
+    update t_post_info
+    set uid = #{uid,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      title = #{title,jdbcType=VARCHAR},
+      type = #{type,jdbcType=INTEGER},
+      lottery_type = #{lotteryType,jdbcType=INTEGER},
+      is_enable = #{isEnable,jdbcType=INTEGER},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      update_date = #{updateDate,jdbcType=TIMESTAMP},
+      remark = #{remark,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+    <select id="selectPostInfoByMap" parameterType="java.util.Map" resultType="com.lb.mobile.dto.response.PostInfoDto">
+        SELECT
+            p.id pid,
+            p.name pname,
+            p.title title,
+            p.create_date createDate,
+            f.file_url fileUrl
+            FROM
+            t_post_info p
+            LEFT JOIN  t_file f  on p.id = f.pi_id and f.file_type= 0 and  p.is_enable =0 and f.pic_no =1
+        where 1=1
+        <if test="type != null">
+            and p.type = #{type,jdbcType=INTEGER}
+        </if>
+        <if test="lotteryType != null">
+            and p.lottery_type = #{lotteryType,jdbcType=INTEGER}
+        </if>
+        ORDER BY p.create_date DESC
+        <if test="limit != null">
+            limit  #{limit,jdbcType=INTEGER}
+        </if>
+    </select>
+    <select id="selectStickyPostInfoByMap" parameterType="java.util.Map" resultType="com.lb.mobile.dto.response.PostInfoDto">
+        SELECT
+            p.id pid,
+            p.name pname,
+            p.title title,
+            p.create_date createDate,
+            f.file_url fileUrl
+        FROM
+	        t_concern c
+             LEFT JOIN  t_post_info p  on c.lottery_type = p.lottery_type and c.is_concern =0
+             LEFT JOIN  t_file f  on p.id = f.pi_id and f.file_type= 0 and  p.is_enable =0 and f.pic_no =1
+            where 1=1
+        <if test="uid != null">
+            and c.uid = #{uid,jdbcType=VARCHAR}
+        </if>
+        <if test="type != null">
+            and p.type = #{type,jdbcType=INTEGER}
+        </if>
+        ORDER BY p.create_date DESC
+        <if test="limit != null">
+            limit  #{limit,jdbcType=INTEGER}
+        </if>
+    </select>
+</mapper>

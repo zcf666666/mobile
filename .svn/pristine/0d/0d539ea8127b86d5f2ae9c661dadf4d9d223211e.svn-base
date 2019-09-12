@@ -1,0 +1,47 @@
+package com.lb.mobile.comm.base.constant;
+
+public interface Constant {
+
+    public static  final  String lottery_data_spilt = "-";
+    public static  final  String lottery_data_group_spilt = "&";
+
+    /**
+     * 彩种
+     */
+   public interface LotteryType{
+        /**七乐彩**/
+        public static  final  int lottery_type_lecagreati = 0;
+        /**大乐透*/
+        public static  final  int lottery_type_superlotto = 1;
+        /**排列三*/
+        public static  final  int lottery_type_arrange_3 = 2;
+        /**双色球*/
+        public static  final  int lottery_type_dualcoloredball = 3;
+        /**福彩3D*/
+        public static  final  int lottery_type_lottery_3_d = 4;
+    }
+    public interface  LotteryStatus{
+        /**待跑**/
+        public static  final  int lottery_status_wait = 0;
+        /**已跑**/
+        public static  final  int lottery_status_succ = 1;
+        /**失败**/
+        public static  final  int lottery_status_fail = 2;
+    }
+    public interface  SchemeStatus{
+        /**成功**/
+        public static  final  int scheme_status_wait = 0;
+        /**成功**/
+        public static  final  int scheme_status_succ = 1;
+        /**失败**/
+        public static  final  int scheme_status_fail = 2;
+    }
+    public interface  IsEnable{
+        /**是**/
+        public static  final  int source_isenable_yes = 0;
+        /**否**/
+        public static  final  int source_isenable_no = 1;
+        /**删**/
+        public static  final  int source_isenable_del = 2;
+    }
+}

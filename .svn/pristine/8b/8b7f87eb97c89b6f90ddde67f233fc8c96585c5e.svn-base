@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+
+    <!-- 当前电脑的数据库驱动程序jar包的全路径 -->
+    <classPathEntry location="D:\lb\software\apache-maven-3.3.3-bin\mvn-repository\mysql\mysql-connector-java\5.1.46\mysql-connector-java-5.1.46.jar"/>
+    <context id="context" targetRuntime="MyBatis3">
+        <!--是否在代码中显示注释-->
+        <commentGenerator>
+            <property name="suppressDate" value="true" />
+            <property name="suppressAllComments" value="true" />
+        </commentGenerator>
+
+        <!--数据库链接地址账号密码-->
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver" connectionURL="jdbc:mysql://192.168.10.3:3306/test" userId="root" password="root">
+        </jdbcConnection>
+        <!--...-->
+        <javaTypeResolver>
+            <property name="forceBigDecimals" value="false"/>
+        </javaTypeResolver>
+        <!--生成pojo类存放位置
+          targetPackage表明要生成的文件要存放的文件夹
+          targetProject表明具体路径
+          比如我这里连起来就是：D:\Workspaces\project\mobile\src\main\java下的com.byh.shiro.pojo文件夹保存生成的pojo文件
+          下面生成xml和mapper同理
+        -->
+        <javaModelGenerator targetPackage="com.lb.mobile.entity" targetProject="D:\Workspaces\project\mobile\src\main\java">
+            <property name="enableSubPackages" value="false"/>
+            <property name="trimStrings" value="true"/>
+        </javaModelGenerator>
+        <!--生成xml映射文件存放位置-->
+        <sqlMapGenerator targetPackage="mapper" targetProject="D:\Workspaces\project\mobile\src\main\resources">
+            <property name="enableSubPackages" value="true"/>
+        </sqlMapGenerator>
+        <!--生成mapper类存放位置-->
+        <javaClientGenerator type="XMLMAPPER" targetPackage="com.lb.mobile.dao" targetProject="D:\Workspaces\project\mobile\src\main\java">
+            <property name="enableSubPackages" value="true"/>
+        </javaClientGenerator>
+        <!--生成对应表及类名-->
+<!--        <table tableName="t_user" domainObjectName="UserPo"-->
+<!--               enableCountByExample="false" enableUpdateByExample="false"-->
+<!--               enableDeleteByExample="false" enableSelectByExample="false"-->
+<!--               selectByExampleQueryId="false">-->
+<!--            <property name="useActualColumnNames" value="false" />-->
+<!--            <generatedKey column="uid" sqlStatement="JDBC"/>-->
+<!--        </table>-->
+<!--        <table tableName="t_chart" domainObjectName="chartPo"-->
+<!--               enableCountByExample="false" enableUpdateByExample="false"-->
+<!--               enableDeleteByExample="false" enableSelectByExample="false"-->
+<!--               selectByExampleQueryId="false">-->
+<!--            <property name="useActualColumnNames" value="false" />-->
+<!--            <generatedKey column="id" sqlStatement="JDBC"/>-->
+<!--        </table>-->
+<!--        <table tableName="t_comment" domainObjectName="commentPo"-->
+<!--               enableCountByExample="false" enableUpdateByExample="false"-->
+<!--               enableDeleteByExample="false" enableSelectByExample="false"-->
+<!--               selectByExampleQueryId="false">-->
+<!--            <property name="useActualColumnNames" value="false" />-->
+<!--            <generatedKey column="id" sqlStatement="JDBC"/>-->
+<!--        </table>-->
+<!--        <table tableName="t_concern" domainObjectName="concernPo"-->
+<!--               enableCountByExample="false" enableUpdateByExample="false"-->
+<!--               enableDeleteByExample="false" enableSelectByExample="false"-->
+<!--               selectByExampleQueryId="false">-->
+<!--            <property name="useActualColumnNames" value="false" />-->
+<!--            <generatedKey column="id" sqlStatement="JDBC"/>-->
+<!--        </table>-->
+<!--        <table tableName="t_fans" domainObjectName="fansPo"-->
+<!--               enableCountByExample="false" enableUpdateByExample="false"-->
+<!--               enableDeleteByExample="false" enableSelectByExample="false"-->
+<!--               selectByExampleQueryId="false">-->
+<!--            <property name="useActualColumnNames" value="false" />-->
+<!--            <generatedKey column="uid" sqlStatement="JDBC"/>-->
+<!--        </table> -->
+<!--    <table tableName="t_favorite" domainObjectName="favoritePo"-->
+<!--                        enableCountByExample="false" enableUpdateByExample="false"-->
+<!--                        enableDeleteByExample="false" enableSelectByExample="false"-->
+<!--                        selectByExampleQueryId="false">-->
+<!--        <property name="useActualColumnNames" value="false" />-->
+<!--        <generatedKey column="id" sqlStatement="JDBC"/>-->
+<!--    </table>-->
+<!--        <table tableName="t_feedback" domainObjectName="feedbackPo"-->
+<!--                    enableCountByExample="false" enableUpdateByExample="false"-->
+<!--                    enableDeleteByExample="false" enableSelectByExample="false"-->
+<!--                    selectByExampleQueryId="false">-->
+<!--        <property name="useActualColumnNames" value="false" />-->
+<!--        <generatedKey column="id" sqlStatement="JDBC"/>-->
+<!--    </table>-->
+<!--        <table tableName="t_file" domainObjectName="filePo"-->
+<!--               enableCountByExample="false" enableUpdateByExample="false"-->
+<!--               enableDeleteByExample="false" enableSelectByExample="false"-->
+<!--               selectByExampleQueryId="false">-->
+<!--            <property name="useActualColumnNames" value="false" />-->
+<!--            <generatedKey column="id" sqlStatement="JDBC"/>-->
+<!--        </table>-->
+<!--        <table tableName="t_lottery" domainObjectName="lotteryPo"-->
+<!--               enableCountByExample="false" enableUpdateByExample="false"-->
+<!--               enableDeleteByExample="false" enableSelectByExample="false"-->
+<!--               selectByExampleQueryId="false">-->
+<!--            <property name="useActualColumnNames" value="false" />-->
+<!--            <generatedKey column="id" sqlStatement="JDBC"/>-->
+<!--        </table>-->
+<!--        <table tableName="t_lottery_info" domainObjectName="lotteryInfoPo"-->
+<!--               enableCountByExample="false" enableUpdateByExample="false"-->
+<!--               enableDeleteByExample="false" enableSelectByExample="false"-->
+<!--               selectByExampleQueryId="false">-->
+<!--            <property name="useActualColumnNames" value="false" />-->
+<!--            <generatedKey column="id" sqlStatement="JDBC"/>-->
+<!--        </table>-->
+<!--        <table tableName="t_notice" domainObjectName="noticePo"-->
+<!--               enableCountByExample="false" enableUpdateByExample="false"-->
+<!--               enableDeleteByExample="false" enableSelectByExample="false"-->
+<!--               selectByExampleQueryId="false">-->
+<!--            <property name="useActualColumnNames" value="false" />-->
+<!--            <generatedKey column="id" sqlStatement="JDBC"/>-->
+<!--        </table> <table tableName="t_post_info" domainObjectName="postInfoPo"-->
+<!--                        enableCountByExample="false" enableUpdateByExample="false"-->
+<!--                        enableDeleteByExample="false" enableSelectByExample="false"-->
+<!--                        selectByExampleQueryId="false">-->
+<!--        <property name="useActualColumnNames" value="false" />-->
+<!--        <generatedKey column="id" sqlStatement="JDBC"/>-->
+<!--    </table> <table tableName="t_professor" domainObjectName="professorPo"-->
+<!--                    enableCountByExample="false" enableUpdateByExample="false"-->
+<!--                    enableDeleteByExample="false" enableSelectByExample="false"-->
+<!--                    selectByExampleQueryId="false">-->
+<!--        <property name="useActualColumnNames" value="false" />-->
+<!--        <generatedKey column="id" sqlStatement="JDBC"/>-->
+<!--    </table>-->
+        <table tableName="t_scheme" domainObjectName="schemePo"
+               enableCountByExample="false" enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false"
+               selectByExampleQueryId="false">
+            <property name="useActualColumnNames" value="false" />
+            <generatedKey column="id" sqlStatement="JDBC"/>
+        </table>
+<!--        <table tableName="t_sms" domainObjectName="smsPo"-->
+<!--               enableCountByExample="false" enableUpdateByExample="false"-->
+<!--               enableDeleteByExample="false" enableSelectByExample="false"-->
+<!--               selectByExampleQueryId="false">-->
+<!--            <property name="useActualColumnNames" value="false" />-->
+<!--            <generatedKey column="id" sqlStatement="JDBC"/>-->
+<!--        </table>-->
+<!--        <table tableName="t_view" domainObjectName="viewPo"-->
+<!--               enableCountByExample="false" enableUpdateByExample="false"-->
+<!--               enableDeleteByExample="false" enableSelectByExample="false"-->
+<!--               selectByExampleQueryId="false">-->
+<!--            <property name="useActualColumnNames" value="false" />-->
+<!--            <generatedKey column="id" sqlStatement="JDBC"/>-->
+<!--        </table>-->
+    </context>
+</generatorConfiguration>

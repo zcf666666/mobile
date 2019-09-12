@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lb.mobile.dao.concernPoMapper">
+  <resultMap id="BaseResultMap" type="com.lb.mobile.entity.concernPo">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="uid" jdbcType="VARCHAR" property="uid" />
+    <result column="lottery_type" jdbcType="INTEGER" property="lotteryType" />
+    <result column="is_concern" jdbcType="INTEGER" property="isConcern" />
+    <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
+    <result column="update_date" jdbcType="TIMESTAMP" property="updateDate" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, uid, lottery_type, is_concern, create_date, update_date, remark
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_concern
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from t_concern
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.lb.mobile.entity.concernPo" useGeneratedKeys="true">
+    insert into t_concern (id,uid, lottery_type, is_concern,
+      create_date, update_date, remark
+      )
+    values (#{id,jdbcType=VARCHAR},#{uid,jdbcType=VARCHAR}, #{lotteryType,jdbcType=INTEGER}, #{isConcern,jdbcType=INTEGER},
+      #{createDate,jdbcType=TIMESTAMP}, #{updateDate,jdbcType=TIMESTAMP}, #{remark,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.lb.mobile.entity.concernPo" useGeneratedKeys="true">
+    insert into t_concern
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+        <if test="id != null">
+            id,
+        </if>
+      <if test="uid != null">
+        uid,
+      </if>
+      <if test="lotteryType != null">
+        lottery_type,
+      </if>
+      <if test="isConcern != null">
+        is_concern,
+      </if>
+      <if test="createDate != null">
+        create_date,
+      </if>
+      <if test="updateDate != null">
+        update_date,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+        <if test="uid != null">
+            #{uid,jdbcType=VARCHAR},
+        </if>
+      <if test="lotteryType != null">
+        #{lotteryType,jdbcType=INTEGER},
+      </if>
+      <if test="isConcern != null">
+        #{isConcern,jdbcType=INTEGER},
+      </if>
+      <if test="createDate != null">
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateDate != null">
+        #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lb.mobile.entity.concernPo">
+    update t_concern
+    <set>
+      <if test="uid != null">
+        uid = #{uid,jdbcType=VARCHAR},
+      </if>
+      <if test="lotteryType != null">
+        lottery_type = #{lotteryType,jdbcType=INTEGER},
+      </if>
+      <if test="isConcern != null">
+        is_concern = #{isConcern,jdbcType=INTEGER},
+      </if>
+      <if test="createDate != null">
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateDate != null">
+        update_date = #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lb.mobile.entity.concernPo">
+    update t_concern
+    set uid = #{uid,jdbcType=VARCHAR},
+      lottery_type = #{lotteryType,jdbcType=INTEGER},
+      is_concern = #{isConcern,jdbcType=INTEGER},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      update_date = #{updateDate,jdbcType=TIMESTAMP},
+      remark = #{remark,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+    <select id="selectByMap" parameterType="java.util.Map" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from t_concern
+        where 1=1
+        <if test="uid != null">
+          and uid =  #{uid,jdbcType=VARCHAR}
+        </if>
+        <if test="isConcern != null">
+            and is_concern = #{isConcern,jdbcType=INTEGER}
+        </if>
+        order by create_date desc
+    </select>
+</mapper>

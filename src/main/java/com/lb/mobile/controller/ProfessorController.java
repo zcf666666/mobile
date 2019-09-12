@@ -1,0 +1,95 @@
+package com.lb.mobile.controller;
+
+import com.lb.mobile.comm.base.ResponseResult;
+import com.lb.mobile.dto.requst.AttentionProfessorDto;
+import com.lb.mobile.dto.requst.SchemePublishDto;
+import com.lb.mobile.dto.requst.SchemeQueryDto;
+import com.lb.mobile.entity.commentPo;
+import com.lb.mobile.entity.favoritePo;
+import com.lb.mobile.service.ProfessorService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import javax.servlet.http.HttpServletRequest;
+import java.text.ParseException;
+import java.util.Map;
+
+@Controller
+@RequestMapping("professor")
+public class ProfessorController {
+
+    private static final Logger log = LoggerFactory.getLogger(ProfessorController.class);
+    @Autowired
+    public ProfessorService professorService;
+
+    @RequestMapping(value = "/hot-professores",method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseResult hotProfessor(HttpServletRequest request , @RequestBody Map<String,String> param){
+        return professorService.selectHotProfessor(param.get("uid"),param.get("limit"));
+    }
+    @RequestMapping(value = "/attention-professor",method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseResult attentionProfessor(HttpServletRequest request , @RequestBody AttentionProfessorDto dto){
+        return professorService.txAttentionProfessor(dto);
+    }
+    @RequestMapping(value = "/professor-schemes",method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseResult professorSchemes(HttpServletRequest request, @RequestBody SchemeQueryDto SchemeQueryDto){
+        return professorService.txProfessorSchemes(SchemeQueryDto);
+    }
+    @RequestMapping(value = "/professor-info",method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseResult professorInfo(HttpServletRequest request, @RequestBody Map<String,String> param){
+        return professorService.txProfessorInfo(param);
+    }
+    @RequestMapping(value = "/history-schemes",method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseResult historySchemes(HttpServletRequest request, @RequestBody Map<String,Object> param){
+        return professorService.txHistorySchemes(param);
+    }
+    @RequestMapping(value = "/schemes-detail",method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseResult schemesDetail(HttpServletRequest request, @RequestBody Map<String,Object> param){
+        return professorService.txSchemesDetail(param);
+    }
+    @RequestMapping(value = "/schemes-comment",method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseResult schemesComment(HttpServletRequest request, @RequestBody commentPo dto){
+        return professorService.txSchemesComment(dto);
+    }
+    @RequestMapping(value = "/is-attention",method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseResult isAttention(HttpServletRequest request, @RequestBody Map<String,Object>  dto){
+        return professorService.txIsAttention(dto);
+    }
+    @RequestMapping(value = "/scheme-enshrine",method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseResult isEnshrine(HttpServletRequest request, @RequestBody favoritePo dto){
+        return professorService.txIsEnshrine(dto);
+    }
+    @RequestMapping(value = "/enshrine-delete",method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseResult enshrineDelete(HttpServletRequest request, @RequestBody favoritePo dto){
+        return professorService.txEnshrineDelete(dto);
+    }
+    @RequestMapping(value = "/scheme-periods",method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseResult schemePeriods(HttpServletRequest request, @RequestBody Map<String,Object>  dto){
+        return professorService.txSchemePeriods(dto);
+    }
+    @RequestMapping(value = "/schemepic-upload",method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseResult schemePicUpload(HttpServletRequest request, @RequestParam MultipartFile file,  @RequestParam String uid,@RequestParam String fileName,@RequestParam String fileExt,
+                                                      @RequestParam int fileType, @RequestParam int picNo,@RequestParam String fileId,@RequestParam String fileUrl ){
+        return professorService.txSchemePicUpload(file,uid,fileName,fileExt,fileType,picNo,fileId,fileUrl);
+    }
+    @RequestMapping(value = "/scheme-publish",method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseResult schemePublish(HttpServletRequest request, @RequestBody SchemePublishDto dto) throws Exception {
+        return professorService.txSchemePublish(dto);
+    }
+}

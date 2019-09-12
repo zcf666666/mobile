@@ -1,0 +1,328 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lb.mobile.dao.schemePoMapper">
+  <resultMap id="BaseResultMap" type="com.lb.mobile.entity.schemePo">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="uid" jdbcType="VARCHAR" property="uid" />
+    <result column="scheme_name" jdbcType="VARCHAR" property="schemeName" />
+    <result column="scheme_lottery_type" jdbcType="INTEGER" property="schemeLotteryType" />
+    <result column="scheme_periods" jdbcType="INTEGER" property="schemePeriods" />
+    <result column="scheme_lottery_results" jdbcType="INTEGER" property="schemeLotteryResults" />
+    <result column="scheme_full" jdbcType="VARCHAR" property="schemeFull" />
+    <result column="scheme_full_rs" jdbcType="VARCHAR" property="schemeFullRs" />
+    <result column="scheme_status" jdbcType="INTEGER" property="schemeStatus" />
+    <result column="scheme_dec" jdbcType="VARCHAR" property="schemeDec" />
+    <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
+    <result column="update_date" jdbcType="TIMESTAMP" property="updateDate" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.lb.mobile.entity.schemePoWithBLOBs">
+    <result column="scheme_genre_pd" jdbcType="LONGVARCHAR" property="schemeGenrePd" />
+    <result column="scheme_genre_rs" jdbcType="LONGVARCHAR" property="schemeGenreRs" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, uid, scheme_name, scheme_lottery_type, scheme_periods,scheme_lottery_results, scheme_full, scheme_full_rs,
+    scheme_status, scheme_dec, create_date, update_date, remark
+  </sql>
+  <sql id="Blob_Column_List">
+    scheme_genre_pd, scheme_genre_rs
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from t_scheme
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from t_scheme
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.lb.mobile.entity.schemePoWithBLOBs" useGeneratedKeys="true">
+    insert into t_scheme (id,uid, scheme_name, scheme_lottery_type,
+      scheme_periods,scheme_lottery_results scheme_full, scheme_full_rs,
+      scheme_status, scheme_dec, create_date, 
+      update_date, remark, scheme_genre_pd, 
+      scheme_genre_rs)
+    values (#{id,jdbcType=VARCHAR},#{uid,jdbcType=VARCHAR}, #{schemeName,jdbcType=VARCHAR}, #{schemeLotteryType,jdbcType=INTEGER},
+      #{schemePeriods,jdbcType=INTEGER}, #{schemeLotteryResults,jdbcType=VARCHAR}, #{schemeFull,jdbcType=VARCHAR}, #{schemeFullRs,jdbcType=VARCHAR},
+      #{schemeStatus,jdbcType=INTEGER}, #{schemeDec,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP}, 
+      #{updateDate,jdbcType=TIMESTAMP}, #{remark,jdbcType=VARCHAR}, #{schemeGenrePd,jdbcType=LONGVARCHAR}, 
+      #{schemeGenreRs,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.lb.mobile.entity.schemePoWithBLOBs" useGeneratedKeys="true">
+    insert into t_scheme
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+        <if test="uid != null">
+            uid,
+        </if>
+      <if test="schemeName != null">
+        scheme_name,
+      </if>
+      <if test="schemeLotteryType != null">
+        scheme_lottery_type,
+      </if>
+      <if test="schemePeriods != null">
+        scheme_periods,
+      </if>
+      <if test="schemeLotteryResults != null">
+          scheme_lottery_results,
+      </if>
+      <if test="schemeFull != null">
+        scheme_full,
+      </if>
+      <if test="schemeFullRs != null">
+        scheme_full_rs,
+      </if>
+      <if test="schemeStatus != null">
+        scheme_status,
+      </if>
+      <if test="schemeDec != null">
+        scheme_dec,
+      </if>
+      <if test="createDate != null">
+        create_date,
+      </if>
+      <if test="updateDate != null">
+        update_date,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+      <if test="schemeGenrePd != null">
+        scheme_genre_pd,
+      </if>
+      <if test="schemeGenreRs != null">
+        scheme_genre_rs,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+        <if test="uid != null">
+            #{uid,jdbcType=VARCHAR},
+        </if>
+      <if test="schemeName != null">
+        #{schemeName,jdbcType=VARCHAR},
+      </if>
+      <if test="schemeLotteryType != null">
+        #{schemeLotteryType,jdbcType=INTEGER},
+      </if>
+      <if test="schemePeriods != null">
+        #{schemePeriods,jdbcType=INTEGER},
+      </if>
+      <if test="schemeLotteryResults != null">
+        #{schemeLotteryResults,jdbcType=INTEGER},
+      </if>
+      <if test="schemeFull != null">
+        #{schemeFull,jdbcType=VARCHAR},
+      </if>
+      <if test="schemeFullRs != null">
+        #{schemeFullRs,jdbcType=VARCHAR},
+      </if>
+      <if test="schemeStatus != null">
+        #{schemeStatus,jdbcType=INTEGER},
+      </if>
+      <if test="schemeDec != null">
+        #{schemeDec,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null">
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateDate != null">
+        #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="schemeGenrePd != null">
+        #{schemeGenrePd,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="schemeGenreRs != null">
+        #{schemeGenreRs,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lb.mobile.entity.schemePoWithBLOBs">
+    update t_scheme
+    <set>
+      <if test="uid != null">
+        uid = #{uid,jdbcType=VARCHAR},
+      </if>
+      <if test="schemeName != null">
+        scheme_name = #{schemeName,jdbcType=VARCHAR},
+      </if>
+      <if test="schemeLotteryType != null">
+        scheme_lottery_type = #{schemeLotteryType,jdbcType=INTEGER},
+      </if>
+      <if test="schemePeriods != null">
+        scheme_periods = #{schemePeriods,jdbcType=INTEGER},
+      </if>
+      <if test="schemeLotteryResults != null">
+          scheme_lottery_results = #{schemeLotteryResults,jdbcType=VARCHAR},
+      </if>
+      <if test="schemeFull != null">
+        scheme_full = #{schemeFull,jdbcType=VARCHAR},
+      </if>
+      <if test="schemeFullRs != null">
+        scheme_full_rs = #{schemeFullRs,jdbcType=VARCHAR},
+      </if>
+      <if test="schemeStatus != null">
+        scheme_status = #{schemeStatus,jdbcType=INTEGER},
+      </if>
+      <if test="schemeDec != null">
+        scheme_dec = #{schemeDec,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null">
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateDate != null">
+        update_date = #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="schemeGenrePd != null">
+        scheme_genre_pd = #{schemeGenrePd,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="schemeGenreRs != null">
+        scheme_genre_rs = #{schemeGenreRs,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.lb.mobile.entity.schemePoWithBLOBs">
+    update t_scheme
+    set uid = #{uid,jdbcType=VARCHAR},
+      scheme_name = #{schemeName,jdbcType=VARCHAR},
+      scheme_lottery_type = #{schemeLotteryType,jdbcType=INTEGER},
+      scheme_periods = #{schemePeriods,jdbcType=INTEGER},
+      scheme_lottery_results = #{schemeLotteryResults,jdbcType=VARCHAR},
+      scheme_full = #{schemeFull,jdbcType=VARCHAR},
+      scheme_full_rs = #{schemeFullRs,jdbcType=VARCHAR},
+      scheme_status = #{schemeStatus,jdbcType=INTEGER},
+      scheme_dec = #{schemeDec,jdbcType=VARCHAR},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      update_date = #{updateDate,jdbcType=TIMESTAMP},
+      remark = #{remark,jdbcType=VARCHAR},
+      scheme_genre_pd = #{schemeGenrePd,jdbcType=LONGVARCHAR},
+      scheme_genre_rs = #{schemeGenreRs,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lb.mobile.entity.schemePo">
+    update t_scheme
+    set uid = #{uid,jdbcType=VARCHAR},
+      scheme_name = #{schemeName,jdbcType=VARCHAR},
+      scheme_lottery_type = #{schemeLotteryType,jdbcType=INTEGER},
+      scheme_periods = #{schemePeriods,jdbcType=INTEGER},
+      scheme_lottery_results = #{schemeLotteryResults,jdbcType=VARCHAR},
+      scheme_full = #{schemeFull,jdbcType=VARCHAR},
+      scheme_full_rs = #{schemeFullRs,jdbcType=VARCHAR},
+      scheme_status = #{schemeStatus,jdbcType=INTEGER},
+      scheme_dec = #{schemeDec,jdbcType=VARCHAR},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      update_date = #{updateDate,jdbcType=TIMESTAMP},
+      remark = #{remark,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+    <select id="selectSchemeListByMap" parameterType="java.util.Map" resultMap="ResultMapWithBLOBs">
+        select
+        <include refid="Base_Column_List" />
+        ,
+        <include refid="Blob_Column_List" />
+        from t_scheme
+        where 1=1
+        <if test="uid != null">
+            and uid = #{uid,jdbcType=VARCHAR}
+        </if>
+        <if test="schemeLotteryType != null">
+            and  scheme_lottery_type = #{schemeLotteryType,jdbcType=INTEGER}
+        </if>
+        <if test="schemePeriods != null">
+            and  scheme_periods = #{schemePeriods,jdbcType=INTEGER}
+        </if>
+        <if test="schemeStatus != null">
+            and scheme_status in
+            <foreach collection="schemeStatus" index="index" item="item" open="(" separator="," close=")">
+                #{item}
+            </foreach>
+        </if>
+        order  by  create_date desc
+    </select>
+    <select id="countSchemeByStatus" parameterType="java.util.Map" resultType="java.lang.Integer">
+        select count(id) from t_scheme where 1=1
+        <if test="uid != null">
+            and uid = #{uid,jdbcType=VARCHAR}
+        </if>
+        <if test="schemeStatus != null">
+            and scheme_status in
+            <foreach collection="schemeStatus" index="index" item="item" open="(" separator="," close=")">
+                #{item}
+            </foreach>
+        </if>
+    </select>
+    <select id="selectProfessorSchemesByDto" parameterType="com.lb.mobile.dto.requst.SchemeQueryDto" resultType="com.lb.mobile.dto.response.ProfessorSchemeDto">
+        SELECT
+        s.id schemeId,
+        s.uid uid,
+        s.scheme_lottery_type schemeLotteryType,
+        s.scheme_periods schemePeriods,
+        s.scheme_name schemeName,
+        s.scheme_dec schemeDec,
+        f.file_url fileUrl,
+        s.create_date createDate
+        FROM
+	        t_scheme   s
+	    LEFT JOIN t_file  f on s.id = f.scheme_id and f.is_enable = 0
+	    where 1=1
+        <if test="uid != null">
+            and  s.uid = #{uid,jdbcType=VARCHAR}
+        </if>
+        <if test="LotteryType != null">
+           and  s.scheme_lottery_type = #{LotteryType,jdbcType=INTEGER}
+        </if>
+	    order  by  s.create_date desc
+    </select>
+    <select id="selectSchemesDetailByDto" parameterType="java.util.Map" resultType="com.lb.mobile.dto.response.SchemeDetailDto">
+        SELECT
+        s.id  schemeId,
+        s.uid proUid,
+        s.scheme_periods schemePeriods,
+        s.scheme_name schemeName,
+        s.scheme_genre_pd schemeGenrePd,
+        s.scheme_full  schemeFull,
+        s.scheme_dec schemeDec,
+        s.create_date createDate,
+        u.nick_name nickName,
+        u.ctm_name ctmName,
+        u.head_url headUrl,
+        f.file_url fileUrl,
+        c.uid commentUid,
+        c.comment ctMsg,
+        c.create_date commentDate
+        FROM
+        t_scheme s
+        LEFT JOIN t_comment c ON s.id = c.post_id and c.is_enable =0
+        LEFT JOIN t_user u  on c.uid = u.uid
+        LEFT JOIN t_file f on c.uid = f.uid
+	 where 1=1
+        <if test="id != null">
+            and  s.id = #{id,jdbcType=VARCHAR}
+        </if>
+        <if test="uid != null">
+            and  s.uid = #{uid,jdbcType=VARCHAR}
+        </if>
+        <if test="LotteryType != null">
+            and  s.scheme_lottery_type = #{LotteryType,jdbcType=INTEGER}
+        </if>
+        ORDER BY c.create_date DESC
+        <if test="limit != null">
+            limit  #{limit,jdbcType=INTEGER}
+        </if>
+    </select>
+</mapper>

@@ -1,0 +1,27 @@
+package com.lb.mobile.service;
+
+import com.lb.mobile.comm.base.ResponseResult;
+import com.lb.mobile.dto.requst.AttentionProfessorDto;
+import com.lb.mobile.dto.requst.SchemePublishDto;
+import com.lb.mobile.dto.requst.SchemeQueryDto;
+import com.lb.mobile.entity.commentPo;
+import com.lb.mobile.entity.favoritePo;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.util.Map;
+
+public interface ProfessorService {
+    ResponseResult selectHotProfessor(String uid,String limit);
+    ResponseResult transactionAttentionProfessor(AttentionProfessorDto dto);
+    ResponseResult transactionProfessorSchemes(SchemeQueryDto SchemeQueryDto);
+    ResponseResult transactionProfessorInfo(Map<String,String> dto);
+    ResponseResult transactionHistorySchemes(Map<String,Object> dto);
+    ResponseResult transactionSchemesDetail(Map<String,Object> dto);
+    ResponseResult transactionSchemesComment(commentPo dto);
+    ResponseResult transactionIsAttention(Map<String,Object> dto);
+    ResponseResult transactionIsEnshrine(favoritePo dto);
+    ResponseResult transactionEnshrineDelete(favoritePo dto);
+    ResponseResult transactionSchemePeriods(Map<String,Object> dto);
+    ResponseResult transactionSchemePicUpload(MultipartFile file, String uid, String fileName, String fileExt, int fileType,  int picNo,String fileId,String fileUrl);
+    ResponseResult transactionSchemePublish (SchemePublishDto dto) throws Exception;
+}
